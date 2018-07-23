@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.base.city.bean.City">
+	<resultMap type="City" id="cityResultMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="code" column="code" />
+		<result property="deleted" column="deleted" />
+		<result property="createdtime" column="createdtime" />
+		<result property="createdUser" column="createdUser" />
+		<result property="updatetime" column="updatetime" />
+		<result property="updateUser" column="updateUser" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		name,
+		code,
+		deleted,
+		createdtime,
+		createdUser,
+		updatetime,
+		updateUser
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{name},
+		#{code},
+		#{deleted},
+		#{createdtime},
+		#{createdUser},
+		#{updatetime},
+		#{updateUser}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="City" useGeneratedKeys="true" keyProperty="id">
+		insert into base_city( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from base_city
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="City">
+		update base_city 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="code != null and code != ''">code = #{code},</if>
+			<if test="deleted != null and deleted != ''">deleted = #{deleted},</if>
+			<if test="createdtime != null and createdtime != ''">createdtime = #{createdtime},</if>
+			<if test="createdUser != null and createdUser != ''">createdUser = #{createdUser},</if>
+			<if test="updatetime != null and updatetime != ''">updatetime = #{updatetime},</if>
+			<if test="updateUser != null and updateUser != ''">updateUser = #{updateUser},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="cityResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from base_city
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="cityResultMap">
+		select <include refid="table_columns" /> 
+		from base_city
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="code != null and code != ''">and code = #{code}</if>
+			<if test="deleted != null and deleted != ''">and deleted = #{deleted}</if>
+			<if test="createdtime != null and createdtime != ''">and createdtime = #{createdtime}</if>
+			<if test="createdUser != null and createdUser != ''">and createdUser = #{createdUser}</if>
+			<if test="updatetime != null and updatetime != ''">and updatetime = #{updatetime}</if>
+			<if test="updateUser != null and updateUser != ''">and updateUser = #{updateUser}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="cityResultMap" parameterType="CitySearch">
+		select <include refid="table_columns" />
+		from base_city
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="CitySearch">
+		select count(id) from base_city
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

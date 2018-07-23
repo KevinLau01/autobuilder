@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.data.classFocus.bean.ClassFocus">
+	<resultMap type="ClassFocus" id="classFocusResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="organizationId" column="organization_id" />
+		<result property="classId" column="class_id" />
+		<result property="score" column="score" />
+		<result property="createAt" column="create_at" />
+		<result property="updateAt" column="update_at" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		organization_id,
+		class_id,
+		score,
+		create_at,
+		update_at
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{organizationId},
+		#{classId},
+		#{score},
+		#{createAt},
+		#{updateAt}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="ClassFocus" useGeneratedKeys="true" keyProperty="id">
+		insert into data_class_focus( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from data_class_focus
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="ClassFocus">
+		update data_class_focus 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="organizationId != null and organizationId != ''">organization_id = #{organizationId},</if>
+			<if test="classId != null and classId != ''">class_id = #{classId},</if>
+			<if test="score != null and score != ''">score = #{score},</if>
+			<if test="createAt != null and createAt != ''">create_at = #{createAt},</if>
+			<if test="updateAt != null and updateAt != ''">update_at = #{updateAt},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="classFocusResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from data_class_focus
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="classFocusResultMap">
+		select <include refid="table_columns" /> 
+		from data_class_focus
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="organizationId != null and organizationId != ''">and organization_id = #{organizationId}</if>
+			<if test="classId != null and classId != ''">and class_id = #{classId}</if>
+			<if test="score != null and score != ''">and score = #{score}</if>
+			<if test="createAt != null and createAt != ''">and create_at = #{createAt}</if>
+			<if test="updateAt != null and updateAt != ''">and update_at = #{updateAt}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="classFocusResultMap" parameterType="ClassFocusSearch">
+		select <include refid="table_columns" />
+		from data_class_focus
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="ClassFocusSearch">
+		select count(id) from data_class_focus
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

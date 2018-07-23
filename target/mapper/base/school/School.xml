@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.base.school.bean.School">
+	<resultMap type="School" id="schoolResultMap">
+		<result property="id" column="id" />
+		<result property="organizationId" column="organization_id" />
+		<result property="cityId" column="city_id" />
+		<result property="name" column="name" />
+		<result property="address" column="address" />
+		<result property="deleted" column="deleted" />
+		<result property="createdtime" column="createdtime" />
+		<result property="createdUser" column="createdUser" />
+		<result property="updatetime" column="updatetime" />
+		<result property="updateUser" column="updateUser" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		organization_id,
+		city_id,
+		name,
+		address,
+		deleted,
+		createdtime,
+		createdUser,
+		updatetime,
+		updateUser
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{organizationId},
+		#{cityId},
+		#{name},
+		#{address},
+		#{deleted},
+		#{createdtime},
+		#{createdUser},
+		#{updatetime},
+		#{updateUser}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="School" useGeneratedKeys="true" keyProperty="id">
+		insert into base_school( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from base_school
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="School">
+		update base_school 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="organizationId != null and organizationId != ''">organization_id = #{organizationId},</if>
+			<if test="cityId != null and cityId != ''">city_id = #{cityId},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="address != null and address != ''">address = #{address},</if>
+			<if test="deleted != null and deleted != ''">deleted = #{deleted},</if>
+			<if test="createdtime != null and createdtime != ''">createdtime = #{createdtime},</if>
+			<if test="createdUser != null and createdUser != ''">createdUser = #{createdUser},</if>
+			<if test="updatetime != null and updatetime != ''">updatetime = #{updatetime},</if>
+			<if test="updateUser != null and updateUser != ''">updateUser = #{updateUser},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="schoolResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from base_school
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="schoolResultMap">
+		select <include refid="table_columns" /> 
+		from base_school
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="organizationId != null and organizationId != ''">and organization_id = #{organizationId}</if>
+			<if test="cityId != null and cityId != ''">and city_id = #{cityId}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="address != null and address != ''">and address = #{address}</if>
+			<if test="deleted != null and deleted != ''">and deleted = #{deleted}</if>
+			<if test="createdtime != null and createdtime != ''">and createdtime = #{createdtime}</if>
+			<if test="createdUser != null and createdUser != ''">and createdUser = #{createdUser}</if>
+			<if test="updatetime != null and updatetime != ''">and updatetime = #{updatetime}</if>
+			<if test="updateUser != null and updateUser != ''">and updateUser = #{updateUser}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="schoolResultMap" parameterType="SchoolSearch">
+		select <include refid="table_columns" />
+		from base_school
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="SchoolSearch">
+		select count(id) from base_school
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

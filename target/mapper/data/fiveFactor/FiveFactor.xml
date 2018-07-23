@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.data.fiveFactor.bean.FiveFactor">
+	<resultMap type="FiveFactor" id="fiveFactorResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="classId" column="class_id" />
+		<result property="stuId" column="stu_id" />
+		<result property="focusScore" column="focus_score" />
+		<result property="activeScore" column="active_score" />
+		<result property="pleasureScore" column="pleasure_score" />
+		<result property="masterScore" column="master_score" />
+		<result property="lectureScore" column="lecture_score" />
+		<result property="totalScore" column="total_score" />
+		<result property="totalLevel" column="total_level" />
+		<result property="totalChange" column="total_change" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="deletedAt" column="deleted_at" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		class_id,
+		stu_id,
+		focus_score,
+		active_score,
+		pleasure_score,
+		master_score,
+		lecture_score,
+		total_score,
+		total_level,
+		total_change,
+		created_at,
+		updated_at,
+		deleted_at
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{classId},
+		#{stuId},
+		#{focusScore},
+		#{activeScore},
+		#{pleasureScore},
+		#{masterScore},
+		#{lectureScore},
+		#{totalScore},
+		#{totalLevel},
+		#{totalChange},
+		#{createdAt},
+		#{updatedAt},
+		#{deletedAt}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="FiveFactor" useGeneratedKeys="true" keyProperty="id">
+		insert into data_five_factor( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from data_five_factor
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="FiveFactor">
+		update data_five_factor 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="classId != null and classId != ''">class_id = #{classId},</if>
+			<if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+			<if test="focusScore != null and focusScore != ''">focus_score = #{focusScore},</if>
+			<if test="activeScore != null and activeScore != ''">active_score = #{activeScore},</if>
+			<if test="pleasureScore != null and pleasureScore != ''">pleasure_score = #{pleasureScore},</if>
+			<if test="masterScore != null and masterScore != ''">master_score = #{masterScore},</if>
+			<if test="lectureScore != null and lectureScore != ''">lecture_score = #{lectureScore},</if>
+			<if test="totalScore != null and totalScore != ''">total_score = #{totalScore},</if>
+			<if test="totalLevel != null and totalLevel != ''">total_level = #{totalLevel},</if>
+			<if test="totalChange != null and totalChange != ''">total_change = #{totalChange},</if>
+			<if test="createdAt != null and createdAt != ''">created_at = #{createdAt},</if>
+			<if test="updatedAt != null and updatedAt != ''">updated_at = #{updatedAt},</if>
+			<if test="deletedAt != null and deletedAt != ''">deleted_at = #{deletedAt},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="fiveFactorResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from data_five_factor
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="fiveFactorResultMap">
+		select <include refid="table_columns" /> 
+		from data_five_factor
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="classId != null and classId != ''">and class_id = #{classId}</if>
+			<if test="stuId != null and stuId != ''">and stu_id = #{stuId}</if>
+			<if test="focusScore != null and focusScore != ''">and focus_score = #{focusScore}</if>
+			<if test="activeScore != null and activeScore != ''">and active_score = #{activeScore}</if>
+			<if test="pleasureScore != null and pleasureScore != ''">and pleasure_score = #{pleasureScore}</if>
+			<if test="masterScore != null and masterScore != ''">and master_score = #{masterScore}</if>
+			<if test="lectureScore != null and lectureScore != ''">and lecture_score = #{lectureScore}</if>
+			<if test="totalScore != null and totalScore != ''">and total_score = #{totalScore}</if>
+			<if test="totalLevel != null and totalLevel != ''">and total_level = #{totalLevel}</if>
+			<if test="totalChange != null and totalChange != ''">and total_change = #{totalChange}</if>
+			<if test="createdAt != null and createdAt != ''">and created_at = #{createdAt}</if>
+			<if test="updatedAt != null and updatedAt != ''">and updated_at = #{updatedAt}</if>
+			<if test="deletedAt != null and deletedAt != ''">and deleted_at = #{deletedAt}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="fiveFactorResultMap" parameterType="FiveFactorSearch">
+		select <include refid="table_columns" />
+		from data_five_factor
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="FiveFactorSearch">
+		select count(id) from data_five_factor
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

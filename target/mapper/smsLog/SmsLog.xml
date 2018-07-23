@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.smsLog.bean.SmsLog">
+	<resultMap type="SmsLog" id="smsLogResultMap">
+		<result property="id" column="id" />
+		<result property="phone" column="phone" />
+		<result property="code" column="code" />
+		<result property="sendtime" column="sendtime" />
+		<result property="status" column="status" />
+		<result property="type" column="type" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		phone,
+		code,
+		sendtime,
+		status,
+		type
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{phone},
+		#{code},
+		#{sendtime},
+		#{status},
+		#{type}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="SmsLog" useGeneratedKeys="true" keyProperty="id">
+		insert into sms_log( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from sms_log
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="SmsLog">
+		update sms_log 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="phone != null and phone != ''">phone = #{phone},</if>
+			<if test="code != null and code != ''">code = #{code},</if>
+			<if test="sendtime != null and sendtime != ''">sendtime = #{sendtime},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="type != null and type != ''">type = #{type},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="smsLogResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from sms_log
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="smsLogResultMap">
+		select <include refid="table_columns" /> 
+		from sms_log
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="phone != null and phone != ''">and phone = #{phone}</if>
+			<if test="code != null and code != ''">and code = #{code}</if>
+			<if test="sendtime != null and sendtime != ''">and sendtime = #{sendtime}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+			<if test="type != null and type != ''">and type = #{type}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="smsLogResultMap" parameterType="SmsLogSearch">
+		select <include refid="table_columns" />
+		from sms_log
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="SmsLogSearch">
+		select count(id) from sms_log
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

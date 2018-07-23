@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.data.stuImage.bean.StuImage">
+	<resultMap type="StuImage" id="stuImageResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="stuId" column="stu_id" />
+		<result property="layer" column="layer" />
+		<result property="imageUrl" column="image_url" />
+		<result property="isMark" column="is_mark" />
+		<result property="createdtime" column="createdtime" />
+		<result property="updatetime" column="updatetime" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		stu_id,
+		layer,
+		image_url,
+		is_mark,
+		createdtime,
+		updatetime
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{stuId},
+		#{layer},
+		#{imageUrl},
+		#{isMark},
+		#{createdtime},
+		#{updatetime}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="StuImage" useGeneratedKeys="true" keyProperty="id">
+		insert into data_stu_image( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from data_stu_image
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="StuImage">
+		update data_stu_image 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+			<if test="layer != null and layer != ''">layer = #{layer},</if>
+			<if test="imageUrl != null and imageUrl != ''">image_url = #{imageUrl},</if>
+			<if test="isMark != null and isMark != ''">is_mark = #{isMark},</if>
+			<if test="createdtime != null and createdtime != ''">createdtime = #{createdtime},</if>
+			<if test="updatetime != null and updatetime != ''">updatetime = #{updatetime},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="stuImageResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from data_stu_image
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="stuImageResultMap">
+		select <include refid="table_columns" /> 
+		from data_stu_image
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="stuId != null and stuId != ''">and stu_id = #{stuId}</if>
+			<if test="layer != null and layer != ''">and layer = #{layer}</if>
+			<if test="imageUrl != null and imageUrl != ''">and image_url = #{imageUrl}</if>
+			<if test="isMark != null and isMark != ''">and is_mark = #{isMark}</if>
+			<if test="createdtime != null and createdtime != ''">and createdtime = #{createdtime}</if>
+			<if test="updatetime != null and updatetime != ''">and updatetime = #{updatetime}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="stuImageResultMap" parameterType="StuImageSearch">
+		select <include refid="table_columns" />
+		from data_stu_image
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="StuImageSearch">
+		select count(id) from data_stu_image
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

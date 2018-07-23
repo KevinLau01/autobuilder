@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.data.stuReport.bean.StuReport">
+	<resultMap type="StuReport" id="stuReportResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="courseName" column="course_name" />
+		<result property="organizationId" column="organization_id" />
+		<result property="schoolId" column="school_id" />
+		<result property="classId" column="class_id" />
+		<result property="className" column="class_name" />
+		<result property="skuId" column="sku_id" />
+		<result property="skuName" column="sku_name" />
+		<result property="stuId" column="stu_id" />
+		<result property="stuName" column="stu_name" />
+		<result property="totalTime" column="total_time" />
+		<result property="focusAvg" column="focus_avg" />
+		<result property="focusRanking" column="focus_ranking" />
+		<result property="focusChange" column="focus_change" />
+		<result property="focusCurve" column="focus_curve" />
+		<result property="focusDownIndex" column="focus_down_index" />
+		<result property="focusScore" column="focus_score" />
+		<result property="focusLevel" column="focus_level" />
+		<result property="focusImgUrl" column="focus_img_url" />
+		<result property="focusVideoImgUrl" column="focus_video_img_url" />
+		<result property="focusVideoUrl" column="focus_video_url" />
+		<result property="activeAvg" column="active_avg" />
+		<result property="activeRanking" column="active_ranking" />
+		<result property="activeChange" column="active_change" />
+		<result property="activeImgUrl" column="active_img_url" />
+		<result property="activeVideoImgUrl" column="active_video_img_url" />
+		<result property="activeVideoUrl" column="active_video_url" />
+		<result property="activeCurve" column="active_curve" />
+		<result property="activeScore" column="active_score" />
+		<result property="activeHandsUp" column="active_hands_up" />
+		<result property="activeLevel" column="active_level" />
+		<result property="pleasureImgUrl" column="pleasure_img_url" />
+		<result property="pleasureVideoImgUrl" column="pleasure_video_img_url" />
+		<result property="pleasureVideoUrl" column="pleasure_video_url" />
+		<result property="pleasureCurve" column="pleasure_curve" />
+		<result property="pleasureScore" column="pleasure_score" />
+		<result property="pleasureChange" column="pleasure_change" />
+		<result property="pleasureLevel" column="pleasure_level" />
+		<result property="masterCurve" column="master_curve" />
+		<result property="masterCurvePre" column="master_curve_pre" />
+		<result property="masterScore" column="master_score" />
+		<result property="masterChange" column="master_change" />
+		<result property="masterLevel" column="master_level" />
+		<result property="lectureCurve" column="lecture_curve" />
+		<result property="lectureCurvePre" column="lecture_curve_pre" />
+		<result property="lectureChange" column="lecture_change" />
+		<result property="lectureLevel" column="lecture_level" />
+		<result property="lectureScore" column="lecture_score" />
+		<result property="parrentFeedbackId" column="parrent_feedback_id" />
+		<result property="isDone" column="is_done" />
+		<result property="isRead" column="is_read" />
+		<result property="tagStep" column="tag_step" />
+		<result property="handlePeopleId" column="handle_people_id" />
+		<result property="handlePeopleName" column="handle_people_name" />
+		<result property="handleTime" column="handle_time" />
+		<result property="createAt" column="create_at" />
+		<result property="updateAt" column="update_at" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		course_name,
+		organization_id,
+		school_id,
+		class_id,
+		class_name,
+		sku_id,
+		sku_name,
+		stu_id,
+		stu_name,
+		total_time,
+		focus_avg,
+		focus_ranking,
+		focus_change,
+		focus_curve,
+		focus_down_index,
+		focus_score,
+		focus_level,
+		focus_img_url,
+		focus_video_img_url,
+		focus_video_url,
+		active_avg,
+		active_ranking,
+		active_change,
+		active_img_url,
+		active_video_img_url,
+		active_video_url,
+		active_curve,
+		active_score,
+		active_hands_up,
+		active_level,
+		pleasure_img_url,
+		pleasure_video_img_url,
+		pleasure_video_url,
+		pleasure_curve,
+		pleasure_score,
+		pleasure_change,
+		pleasure_level,
+		master_curve,
+		master_curve_pre,
+		master_score,
+		master_change,
+		master_level,
+		lecture_curve,
+		lecture_curve_pre,
+		lecture_change,
+		lecture_level,
+		lecture_score,
+		parrent_feedback_id,
+		is_done,
+		is_read,
+		tag_step,
+		handle_people_id,
+		handle_people_name,
+		handle_time,
+		create_at,
+		update_at,
+		status
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{courseName},
+		#{organizationId},
+		#{schoolId},
+		#{classId},
+		#{className},
+		#{skuId},
+		#{skuName},
+		#{stuId},
+		#{stuName},
+		#{totalTime},
+		#{focusAvg},
+		#{focusRanking},
+		#{focusChange},
+		#{focusCurve},
+		#{focusDownIndex},
+		#{focusScore},
+		#{focusLevel},
+		#{focusImgUrl},
+		#{focusVideoImgUrl},
+		#{focusVideoUrl},
+		#{activeAvg},
+		#{activeRanking},
+		#{activeChange},
+		#{activeImgUrl},
+		#{activeVideoImgUrl},
+		#{activeVideoUrl},
+		#{activeCurve},
+		#{activeScore},
+		#{activeHandsUp},
+		#{activeLevel},
+		#{pleasureImgUrl},
+		#{pleasureVideoImgUrl},
+		#{pleasureVideoUrl},
+		#{pleasureCurve},
+		#{pleasureScore},
+		#{pleasureChange},
+		#{pleasureLevel},
+		#{masterCurve},
+		#{masterCurvePre},
+		#{masterScore},
+		#{masterChange},
+		#{masterLevel},
+		#{lectureCurve},
+		#{lectureCurvePre},
+		#{lectureChange},
+		#{lectureLevel},
+		#{lectureScore},
+		#{parrentFeedbackId},
+		#{isDone},
+		#{isRead},
+		#{tagStep},
+		#{handlePeopleId},
+		#{handlePeopleName},
+		#{handleTime},
+		#{createAt},
+		#{updateAt},
+		#{status}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="StuReport" useGeneratedKeys="true" keyProperty="id">
+		insert into data_stu_report( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from data_stu_report
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="StuReport">
+		update data_stu_report 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="courseName != null and courseName != ''">course_name = #{courseName},</if>
+			<if test="organizationId != null and organizationId != ''">organization_id = #{organizationId},</if>
+			<if test="schoolId != null and schoolId != ''">school_id = #{schoolId},</if>
+			<if test="classId != null and classId != ''">class_id = #{classId},</if>
+			<if test="className != null and className != ''">class_name = #{className},</if>
+			<if test="skuId != null and skuId != ''">sku_id = #{skuId},</if>
+			<if test="skuName != null and skuName != ''">sku_name = #{skuName},</if>
+			<if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+			<if test="stuName != null and stuName != ''">stu_name = #{stuName},</if>
+			<if test="totalTime != null and totalTime != ''">total_time = #{totalTime},</if>
+			<if test="focusAvg != null and focusAvg != ''">focus_avg = #{focusAvg},</if>
+			<if test="focusRanking != null and focusRanking != ''">focus_ranking = #{focusRanking},</if>
+			<if test="focusChange != null and focusChange != ''">focus_change = #{focusChange},</if>
+			<if test="focusCurve != null and focusCurve != ''">focus_curve = #{focusCurve},</if>
+			<if test="focusDownIndex != null and focusDownIndex != ''">focus_down_index = #{focusDownIndex},</if>
+			<if test="focusScore != null and focusScore != ''">focus_score = #{focusScore},</if>
+			<if test="focusLevel != null and focusLevel != ''">focus_level = #{focusLevel},</if>
+			<if test="focusImgUrl != null and focusImgUrl != ''">focus_img_url = #{focusImgUrl},</if>
+			<if test="focusVideoImgUrl != null and focusVideoImgUrl != ''">focus_video_img_url = #{focusVideoImgUrl},</if>
+			<if test="focusVideoUrl != null and focusVideoUrl != ''">focus_video_url = #{focusVideoUrl},</if>
+			<if test="activeAvg != null and activeAvg != ''">active_avg = #{activeAvg},</if>
+			<if test="activeRanking != null and activeRanking != ''">active_ranking = #{activeRanking},</if>
+			<if test="activeChange != null and activeChange != ''">active_change = #{activeChange},</if>
+			<if test="activeImgUrl != null and activeImgUrl != ''">active_img_url = #{activeImgUrl},</if>
+			<if test="activeVideoImgUrl != null and activeVideoImgUrl != ''">active_video_img_url = #{activeVideoImgUrl},</if>
+			<if test="activeVideoUrl != null and activeVideoUrl != ''">active_video_url = #{activeVideoUrl},</if>
+			<if test="activeCurve != null and activeCurve != ''">active_curve = #{activeCurve},</if>
+			<if test="activeScore != null and activeScore != ''">active_score = #{activeScore},</if>
+			<if test="activeHandsUp != null and activeHandsUp != ''">active_hands_up = #{activeHandsUp},</if>
+			<if test="activeLevel != null and activeLevel != ''">active_level = #{activeLevel},</if>
+			<if test="pleasureImgUrl != null and pleasureImgUrl != ''">pleasure_img_url = #{pleasureImgUrl},</if>
+			<if test="pleasureVideoImgUrl != null and pleasureVideoImgUrl != ''">pleasure_video_img_url = #{pleasureVideoImgUrl},</if>
+			<if test="pleasureVideoUrl != null and pleasureVideoUrl != ''">pleasure_video_url = #{pleasureVideoUrl},</if>
+			<if test="pleasureCurve != null and pleasureCurve != ''">pleasure_curve = #{pleasureCurve},</if>
+			<if test="pleasureScore != null and pleasureScore != ''">pleasure_score = #{pleasureScore},</if>
+			<if test="pleasureChange != null and pleasureChange != ''">pleasure_change = #{pleasureChange},</if>
+			<if test="pleasureLevel != null and pleasureLevel != ''">pleasure_level = #{pleasureLevel},</if>
+			<if test="masterCurve != null and masterCurve != ''">master_curve = #{masterCurve},</if>
+			<if test="masterCurvePre != null and masterCurvePre != ''">master_curve_pre = #{masterCurvePre},</if>
+			<if test="masterScore != null and masterScore != ''">master_score = #{masterScore},</if>
+			<if test="masterChange != null and masterChange != ''">master_change = #{masterChange},</if>
+			<if test="masterLevel != null and masterLevel != ''">master_level = #{masterLevel},</if>
+			<if test="lectureCurve != null and lectureCurve != ''">lecture_curve = #{lectureCurve},</if>
+			<if test="lectureCurvePre != null and lectureCurvePre != ''">lecture_curve_pre = #{lectureCurvePre},</if>
+			<if test="lectureChange != null and lectureChange != ''">lecture_change = #{lectureChange},</if>
+			<if test="lectureLevel != null and lectureLevel != ''">lecture_level = #{lectureLevel},</if>
+			<if test="lectureScore != null and lectureScore != ''">lecture_score = #{lectureScore},</if>
+			<if test="parrentFeedbackId != null and parrentFeedbackId != ''">parrent_feedback_id = #{parrentFeedbackId},</if>
+			<if test="isDone != null and isDone != ''">is_done = #{isDone},</if>
+			<if test="isRead != null and isRead != ''">is_read = #{isRead},</if>
+			<if test="tagStep != null and tagStep != ''">tag_step = #{tagStep},</if>
+			<if test="handlePeopleId != null and handlePeopleId != ''">handle_people_id = #{handlePeopleId},</if>
+			<if test="handlePeopleName != null and handlePeopleName != ''">handle_people_name = #{handlePeopleName},</if>
+			<if test="handleTime != null and handleTime != ''">handle_time = #{handleTime},</if>
+			<if test="createAt != null and createAt != ''">create_at = #{createAt},</if>
+			<if test="updateAt != null and updateAt != ''">update_at = #{updateAt},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="stuReportResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from data_stu_report
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="stuReportResultMap">
+		select <include refid="table_columns" /> 
+		from data_stu_report
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="courseName != null and courseName != ''">and course_name = #{courseName}</if>
+			<if test="organizationId != null and organizationId != ''">and organization_id = #{organizationId}</if>
+			<if test="schoolId != null and schoolId != ''">and school_id = #{schoolId}</if>
+			<if test="classId != null and classId != ''">and class_id = #{classId}</if>
+			<if test="className != null and className != ''">and class_name = #{className}</if>
+			<if test="skuId != null and skuId != ''">and sku_id = #{skuId}</if>
+			<if test="skuName != null and skuName != ''">and sku_name = #{skuName}</if>
+			<if test="stuId != null and stuId != ''">and stu_id = #{stuId}</if>
+			<if test="stuName != null and stuName != ''">and stu_name = #{stuName}</if>
+			<if test="totalTime != null and totalTime != ''">and total_time = #{totalTime}</if>
+			<if test="focusAvg != null and focusAvg != ''">and focus_avg = #{focusAvg}</if>
+			<if test="focusRanking != null and focusRanking != ''">and focus_ranking = #{focusRanking}</if>
+			<if test="focusChange != null and focusChange != ''">and focus_change = #{focusChange}</if>
+			<if test="focusCurve != null and focusCurve != ''">and focus_curve = #{focusCurve}</if>
+			<if test="focusDownIndex != null and focusDownIndex != ''">and focus_down_index = #{focusDownIndex}</if>
+			<if test="focusScore != null and focusScore != ''">and focus_score = #{focusScore}</if>
+			<if test="focusLevel != null and focusLevel != ''">and focus_level = #{focusLevel}</if>
+			<if test="focusImgUrl != null and focusImgUrl != ''">and focus_img_url = #{focusImgUrl}</if>
+			<if test="focusVideoImgUrl != null and focusVideoImgUrl != ''">and focus_video_img_url = #{focusVideoImgUrl}</if>
+			<if test="focusVideoUrl != null and focusVideoUrl != ''">and focus_video_url = #{focusVideoUrl}</if>
+			<if test="activeAvg != null and activeAvg != ''">and active_avg = #{activeAvg}</if>
+			<if test="activeRanking != null and activeRanking != ''">and active_ranking = #{activeRanking}</if>
+			<if test="activeChange != null and activeChange != ''">and active_change = #{activeChange}</if>
+			<if test="activeImgUrl != null and activeImgUrl != ''">and active_img_url = #{activeImgUrl}</if>
+			<if test="activeVideoImgUrl != null and activeVideoImgUrl != ''">and active_video_img_url = #{activeVideoImgUrl}</if>
+			<if test="activeVideoUrl != null and activeVideoUrl != ''">and active_video_url = #{activeVideoUrl}</if>
+			<if test="activeCurve != null and activeCurve != ''">and active_curve = #{activeCurve}</if>
+			<if test="activeScore != null and activeScore != ''">and active_score = #{activeScore}</if>
+			<if test="activeHandsUp != null and activeHandsUp != ''">and active_hands_up = #{activeHandsUp}</if>
+			<if test="activeLevel != null and activeLevel != ''">and active_level = #{activeLevel}</if>
+			<if test="pleasureImgUrl != null and pleasureImgUrl != ''">and pleasure_img_url = #{pleasureImgUrl}</if>
+			<if test="pleasureVideoImgUrl != null and pleasureVideoImgUrl != ''">and pleasure_video_img_url = #{pleasureVideoImgUrl}</if>
+			<if test="pleasureVideoUrl != null and pleasureVideoUrl != ''">and pleasure_video_url = #{pleasureVideoUrl}</if>
+			<if test="pleasureCurve != null and pleasureCurve != ''">and pleasure_curve = #{pleasureCurve}</if>
+			<if test="pleasureScore != null and pleasureScore != ''">and pleasure_score = #{pleasureScore}</if>
+			<if test="pleasureChange != null and pleasureChange != ''">and pleasure_change = #{pleasureChange}</if>
+			<if test="pleasureLevel != null and pleasureLevel != ''">and pleasure_level = #{pleasureLevel}</if>
+			<if test="masterCurve != null and masterCurve != ''">and master_curve = #{masterCurve}</if>
+			<if test="masterCurvePre != null and masterCurvePre != ''">and master_curve_pre = #{masterCurvePre}</if>
+			<if test="masterScore != null and masterScore != ''">and master_score = #{masterScore}</if>
+			<if test="masterChange != null and masterChange != ''">and master_change = #{masterChange}</if>
+			<if test="masterLevel != null and masterLevel != ''">and master_level = #{masterLevel}</if>
+			<if test="lectureCurve != null and lectureCurve != ''">and lecture_curve = #{lectureCurve}</if>
+			<if test="lectureCurvePre != null and lectureCurvePre != ''">and lecture_curve_pre = #{lectureCurvePre}</if>
+			<if test="lectureChange != null and lectureChange != ''">and lecture_change = #{lectureChange}</if>
+			<if test="lectureLevel != null and lectureLevel != ''">and lecture_level = #{lectureLevel}</if>
+			<if test="lectureScore != null and lectureScore != ''">and lecture_score = #{lectureScore}</if>
+			<if test="parrentFeedbackId != null and parrentFeedbackId != ''">and parrent_feedback_id = #{parrentFeedbackId}</if>
+			<if test="isDone != null and isDone != ''">and is_done = #{isDone}</if>
+			<if test="isRead != null and isRead != ''">and is_read = #{isRead}</if>
+			<if test="tagStep != null and tagStep != ''">and tag_step = #{tagStep}</if>
+			<if test="handlePeopleId != null and handlePeopleId != ''">and handle_people_id = #{handlePeopleId}</if>
+			<if test="handlePeopleName != null and handlePeopleName != ''">and handle_people_name = #{handlePeopleName}</if>
+			<if test="handleTime != null and handleTime != ''">and handle_time = #{handleTime}</if>
+			<if test="createAt != null and createAt != ''">and create_at = #{createAt}</if>
+			<if test="updateAt != null and updateAt != ''">and update_at = #{updateAt}</if>
+			<if test="status != null and status != ''">and status = #{status}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="stuReportResultMap" parameterType="StuReportSearch">
+		select <include refid="table_columns" />
+		from data_stu_report
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="StuReportSearch">
+		select count(id) from data_stu_report
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

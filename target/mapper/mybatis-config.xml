@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <!-- changes from the defaults -->
+        <setting name="lazyLoadingEnabled" value="false"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.jxt"/>
+    </typeAliases>
+
+    <mappers>
+    <!--
+        <mapper resource="mapper/payOrder/PayOrder.xml"/>     
+    -->
+            <mapper resource="mapper/bannerNotice/BannerNotice.xml"/> 
+        <mapper resource="mapper/base/city/City.xml"/> 
+        <mapper resource="mapper/base/class/Class.xml"/> 
+        <mapper resource="mapper/base/classroom/Classroom.xml"/> 
+        <mapper resource="mapper/base/client/Client.xml"/> 
+        <mapper resource="mapper/base/course/Course.xml"/> 
+        <mapper resource="mapper/base/organization/Organization.xml"/> 
+        <mapper resource="mapper/base/school/School.xml"/> 
+        <mapper resource="mapper/base/sku/Sku.xml"/> 
+        <mapper resource="mapper/base/stu/Stu.xml"/> 
+        <mapper resource="mapper/base/stuClassMapping/StuClassMapping.xml"/> 
+        <mapper resource="mapper/base/teacher/Teacher.xml"/> 
+        <mapper resource="mapper/base/user/User.xml"/> 
+        <mapper resource="mapper/bizOrgIdMapping/BizOrgIdMapping.xml"/> 
+        <mapper resource="mapper/data/classFocus/ClassFocus.xml"/> 
+        <mapper resource="mapper/data/classReport/ClassReport.xml"/> 
+        <mapper resource="mapper/data/faceImage/FaceImage.xml"/> 
+        <mapper resource="mapper/data/fiveFactor/FiveFactor.xml"/> 
+        <mapper resource="mapper/data/originTable/OriginTable.xml"/> 
+        <mapper resource="mapper/data/postvideo/Postvideo.xml"/> 
+        <mapper resource="mapper/data/postvideoStatus/PostvideoStatus.xml"/> 
+        <mapper resource="mapper/data/stuActive/StuActive.xml"/> 
+        <mapper resource="mapper/data/stuDaily/StuDaily.xml"/> 
+        <mapper resource="mapper/data/stuFocus/StuFocus.xml"/> 
+        <mapper resource="mapper/data/stuImage/StuImage.xml"/> 
+        <mapper resource="mapper/data/stuReport/StuReport.xml"/> 
+        <mapper resource="mapper/data/stuVideo/StuVideo.xml"/> 
+        <mapper resource="mapper/data/timeAbsorbed/TimeAbsorbed.xml"/> 
+        <mapper resource="mapper/data/timeAttitude/TimeAttitude.xml"/> 
+        <mapper resource="mapper/data/timeEmotion/TimeEmotion.xml"/> 
+        <mapper resource="mapper/data/userDimension/UserDimension.xml"/> 
+        <mapper resource="mapper/feedBack/FeedBack.xml"/> 
+        <mapper resource="mapper/feedImpress/FeedImpress.xml"/> 
+        <mapper resource="mapper/logOperation/LogOperation.xml"/> 
+        <mapper resource="mapper/pyClassSchedule/PyClassSchedule.xml"/> 
+        <mapper resource="mapper/recommendLesson/RecommendLesson.xml"/> 
+        <mapper resource="mapper/recommendQuestion/RecommendQuestion.xml"/> 
+        <mapper resource="mapper/recommendQuestionType/RecommendQuestionType.xml"/> 
+        <mapper resource="mapper/remarkChange/RemarkChange.xml"/> 
+        <mapper resource="mapper/remarkWord/RemarkWord.xml"/> 
+        <mapper resource="mapper/rulePermission/RulePermission.xml"/> 
+        <mapper resource="mapper/ruleRole/RuleRole.xml"/> 
+        <mapper resource="mapper/ruleRolePermission/RuleRolePermission.xml"/> 
+        <mapper resource="mapper/ruleUserRole/RuleUserRole.xml"/> 
+        <mapper resource="mapper/smsLog/SmsLog.xml"/> 
+        <mapper resource="mapper/stuFaceMapping/StuFaceMapping.xml"/> 
+        <mapper resource="mapper/teacherRecommentFactor/TeacherRecommentFactor.xml"/> 
+        <mapper resource="mapper/websocketClientMap/WebsocketClientMap.xml"/> 
+        <mapper resource="mapper/websocketDataCommon/WebsocketDataCommon.xml"/> 
+     
+    </mappers>
+</configuration>

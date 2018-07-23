@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.remarkWord.bean.RemarkWord">
+	<resultMap type="RemarkWord" id="remarkWordResultMap">
+		<result property="id" column="id" />
+		<result property="remarkType" column="remark_type" />
+		<result property="level" column="level" />
+		<result property="talkType" column="talk_type" />
+		<result property="wordType" column="word_type" />
+		<result property="remarkWord" column="remark_word" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="deletedAt" column="deleted_at" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		remark_type,
+		level,
+		talk_type,
+		word_type,
+		remark_word,
+		created_at,
+		updated_at,
+		deleted_at
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{remarkType},
+		#{level},
+		#{talkType},
+		#{wordType},
+		#{remarkWord},
+		#{createdAt},
+		#{updatedAt},
+		#{deletedAt}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="RemarkWord" useGeneratedKeys="true" keyProperty="id">
+		insert into remark_word( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from remark_word
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="RemarkWord">
+		update remark_word 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="remarkType != null and remarkType != ''">remark_type = #{remarkType},</if>
+			<if test="level != null and level != ''">level = #{level},</if>
+			<if test="talkType != null and talkType != ''">talk_type = #{talkType},</if>
+			<if test="wordType != null and wordType != ''">word_type = #{wordType},</if>
+			<if test="remarkWord != null and remarkWord != ''">remark_word = #{remarkWord},</if>
+			<if test="createdAt != null and createdAt != ''">created_at = #{createdAt},</if>
+			<if test="updatedAt != null and updatedAt != ''">updated_at = #{updatedAt},</if>
+			<if test="deletedAt != null and deletedAt != ''">deleted_at = #{deletedAt},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="remarkWordResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from remark_word
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="remarkWordResultMap">
+		select <include refid="table_columns" /> 
+		from remark_word
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="remarkType != null and remarkType != ''">and remark_type = #{remarkType}</if>
+			<if test="level != null and level != ''">and level = #{level}</if>
+			<if test="talkType != null and talkType != ''">and talk_type = #{talkType}</if>
+			<if test="wordType != null and wordType != ''">and word_type = #{wordType}</if>
+			<if test="remarkWord != null and remarkWord != ''">and remark_word = #{remarkWord}</if>
+			<if test="createdAt != null and createdAt != ''">and created_at = #{createdAt}</if>
+			<if test="updatedAt != null and updatedAt != ''">and updated_at = #{updatedAt}</if>
+			<if test="deletedAt != null and deletedAt != ''">and deleted_at = #{deletedAt}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="remarkWordResultMap" parameterType="RemarkWordSearch">
+		select <include refid="table_columns" />
+		from remark_word
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="RemarkWordSearch">
+		select count(id) from remark_word
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

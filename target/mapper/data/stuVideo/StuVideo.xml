@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.data.stuVideo.bean.StuVideo">
+	<resultMap type="StuVideo" id="stuVideoResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="stuId" column="stu_id" />
+		<result property="layer" column="layer" />
+		<result property="imageUrl" column="image_url" />
+		<result property="videoUrl" column="video_url" />
+		<result property="isMark" column="is_mark" />
+		<result property="createdtime" column="createdtime" />
+		<result property="updatetime" column="updatetime" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		stu_id,
+		layer,
+		image_url,
+		video_url,
+		is_mark,
+		createdtime,
+		updatetime
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{stuId},
+		#{layer},
+		#{imageUrl},
+		#{videoUrl},
+		#{isMark},
+		#{createdtime},
+		#{updatetime}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="StuVideo" useGeneratedKeys="true" keyProperty="id">
+		insert into data_stu_video( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from data_stu_video
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="StuVideo">
+		update data_stu_video 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+			<if test="layer != null and layer != ''">layer = #{layer},</if>
+			<if test="imageUrl != null and imageUrl != ''">image_url = #{imageUrl},</if>
+			<if test="videoUrl != null and videoUrl != ''">video_url = #{videoUrl},</if>
+			<if test="isMark != null and isMark != ''">is_mark = #{isMark},</if>
+			<if test="createdtime != null and createdtime != ''">createdtime = #{createdtime},</if>
+			<if test="updatetime != null and updatetime != ''">updatetime = #{updatetime},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="stuVideoResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from data_stu_video
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="stuVideoResultMap">
+		select <include refid="table_columns" /> 
+		from data_stu_video
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="stuId != null and stuId != ''">and stu_id = #{stuId}</if>
+			<if test="layer != null and layer != ''">and layer = #{layer}</if>
+			<if test="imageUrl != null and imageUrl != ''">and image_url = #{imageUrl}</if>
+			<if test="videoUrl != null and videoUrl != ''">and video_url = #{videoUrl}</if>
+			<if test="isMark != null and isMark != ''">and is_mark = #{isMark}</if>
+			<if test="createdtime != null and createdtime != ''">and createdtime = #{createdtime}</if>
+			<if test="updatetime != null and updatetime != ''">and updatetime = #{updatetime}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="stuVideoResultMap" parameterType="StuVideoSearch">
+		select <include refid="table_columns" />
+		from data_stu_video
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="StuVideoSearch">
+		select count(id) from data_stu_video
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

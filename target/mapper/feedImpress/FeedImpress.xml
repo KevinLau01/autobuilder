@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.feedImpress.bean.FeedImpress">
+	<resultMap type="FeedImpress" id="feedImpressResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="classId" column="class_id" />
+		<result property="courseName" column="course_name" />
+		<result property="className" column="class_name" />
+		<result property="userId" column="user_id" />
+		<result property="teacherId" column="teacher_id" />
+		<result property="teacherName" column="teacher_name" />
+		<result property="teacherType" column="teacher_type" />
+		<result property="assistantId" column="assistant_id" />
+		<result property="assistantName" column="assistant_name" />
+		<result property="courseTime" column="course_time" />
+		<result property="mainScore" column="main_score" />
+		<result property="assistScore" column="assist_score" />
+		<result property="feedLevel" column="feed_level" />
+		<result property="feedImpress" column="feed_impress" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="deletedAt" column="deleted_at" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		class_id,
+		course_name,
+		class_name,
+		user_id,
+		teacher_id,
+		teacher_name,
+		teacher_type,
+		assistant_id,
+		assistant_name,
+		course_time,
+		main_score,
+		assist_score,
+		feed_level,
+		feed_impress,
+		created_at,
+		updated_at,
+		deleted_at
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{classId},
+		#{courseName},
+		#{className},
+		#{userId},
+		#{teacherId},
+		#{teacherName},
+		#{teacherType},
+		#{assistantId},
+		#{assistantName},
+		#{courseTime},
+		#{mainScore},
+		#{assistScore},
+		#{feedLevel},
+		#{feedImpress},
+		#{createdAt},
+		#{updatedAt},
+		#{deletedAt}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="FeedImpress" useGeneratedKeys="true" keyProperty="id">
+		insert into feed_impress( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from feed_impress
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="FeedImpress">
+		update feed_impress 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="classId != null and classId != ''">class_id = #{classId},</if>
+			<if test="courseName != null and courseName != ''">course_name = #{courseName},</if>
+			<if test="className != null and className != ''">class_name = #{className},</if>
+			<if test="userId != null and userId != ''">user_id = #{userId},</if>
+			<if test="teacherId != null and teacherId != ''">teacher_id = #{teacherId},</if>
+			<if test="teacherName != null and teacherName != ''">teacher_name = #{teacherName},</if>
+			<if test="teacherType != null and teacherType != ''">teacher_type = #{teacherType},</if>
+			<if test="assistantId != null and assistantId != ''">assistant_id = #{assistantId},</if>
+			<if test="assistantName != null and assistantName != ''">assistant_name = #{assistantName},</if>
+			<if test="courseTime != null and courseTime != ''">course_time = #{courseTime},</if>
+			<if test="mainScore != null and mainScore != ''">main_score = #{mainScore},</if>
+			<if test="assistScore != null and assistScore != ''">assist_score = #{assistScore},</if>
+			<if test="feedLevel != null and feedLevel != ''">feed_level = #{feedLevel},</if>
+			<if test="feedImpress != null and feedImpress != ''">feed_impress = #{feedImpress},</if>
+			<if test="createdAt != null and createdAt != ''">created_at = #{createdAt},</if>
+			<if test="updatedAt != null and updatedAt != ''">updated_at = #{updatedAt},</if>
+			<if test="deletedAt != null and deletedAt != ''">deleted_at = #{deletedAt},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="feedImpressResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from feed_impress
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="feedImpressResultMap">
+		select <include refid="table_columns" /> 
+		from feed_impress
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="classId != null and classId != ''">and class_id = #{classId}</if>
+			<if test="courseName != null and courseName != ''">and course_name = #{courseName}</if>
+			<if test="className != null and className != ''">and class_name = #{className}</if>
+			<if test="userId != null and userId != ''">and user_id = #{userId}</if>
+			<if test="teacherId != null and teacherId != ''">and teacher_id = #{teacherId}</if>
+			<if test="teacherName != null and teacherName != ''">and teacher_name = #{teacherName}</if>
+			<if test="teacherType != null and teacherType != ''">and teacher_type = #{teacherType}</if>
+			<if test="assistantId != null and assistantId != ''">and assistant_id = #{assistantId}</if>
+			<if test="assistantName != null and assistantName != ''">and assistant_name = #{assistantName}</if>
+			<if test="courseTime != null and courseTime != ''">and course_time = #{courseTime}</if>
+			<if test="mainScore != null and mainScore != ''">and main_score = #{mainScore}</if>
+			<if test="assistScore != null and assistScore != ''">and assist_score = #{assistScore}</if>
+			<if test="feedLevel != null and feedLevel != ''">and feed_level = #{feedLevel}</if>
+			<if test="feedImpress != null and feedImpress != ''">and feed_impress = #{feedImpress}</if>
+			<if test="createdAt != null and createdAt != ''">and created_at = #{createdAt}</if>
+			<if test="updatedAt != null and updatedAt != ''">and updated_at = #{updatedAt}</if>
+			<if test="deletedAt != null and deletedAt != ''">and deleted_at = #{deletedAt}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="feedImpressResultMap" parameterType="FeedImpressSearch">
+		select <include refid="table_columns" />
+		from feed_impress
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="FeedImpressSearch">
+		select count(id) from feed_impress
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

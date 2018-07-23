@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.recommendQuestionType.bean.RecommendQuestionType">
+	<resultMap type="RecommendQuestionType" id="recommendQuestionTypeResultMap">
+		<result property="id" column="id" />
+		<result property="questionTypeId" column="question_type_id" />
+		<result property="questionTypeName" column="question_type_name" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="deletedAt" column="deleted_at" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		question_type_id,
+		question_type_name,
+		created_at,
+		updated_at,
+		deleted_at
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{questionTypeId},
+		#{questionTypeName},
+		#{createdAt},
+		#{updatedAt},
+		#{deletedAt}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="RecommendQuestionType" useGeneratedKeys="true" keyProperty="id">
+		insert into recommend_question_type( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from recommend_question_type
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="RecommendQuestionType">
+		update recommend_question_type 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="questionTypeId != null and questionTypeId != ''">question_type_id = #{questionTypeId},</if>
+			<if test="questionTypeName != null and questionTypeName != ''">question_type_name = #{questionTypeName},</if>
+			<if test="createdAt != null and createdAt != ''">created_at = #{createdAt},</if>
+			<if test="updatedAt != null and updatedAt != ''">updated_at = #{updatedAt},</if>
+			<if test="deletedAt != null and deletedAt != ''">deleted_at = #{deletedAt},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="recommendQuestionTypeResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from recommend_question_type
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="recommendQuestionTypeResultMap">
+		select <include refid="table_columns" /> 
+		from recommend_question_type
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="questionTypeId != null and questionTypeId != ''">and question_type_id = #{questionTypeId}</if>
+			<if test="questionTypeName != null and questionTypeName != ''">and question_type_name = #{questionTypeName}</if>
+			<if test="createdAt != null and createdAt != ''">and created_at = #{createdAt}</if>
+			<if test="updatedAt != null and updatedAt != ''">and updated_at = #{updatedAt}</if>
+			<if test="deletedAt != null and deletedAt != ''">and deleted_at = #{deletedAt}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="recommendQuestionTypeResultMap" parameterType="RecommendQuestionTypeSearch">
+		select <include refid="table_columns" />
+		from recommend_question_type
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="RecommendQuestionTypeSearch">
+		select count(id) from recommend_question_type
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>

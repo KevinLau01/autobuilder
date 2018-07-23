@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.testpro.data.stuActive.bean.StuActive">
+	<resultMap type="StuActive" id="stuActiveResultMap">
+		<result property="id" column="id" />
+		<result property="courseId" column="course_id" />
+		<result property="stuId" column="stu_id" />
+		<result property="type" column="type" />
+		<result property="times" column="times" />
+		<result property="degree" column="degree" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="deletedAt" column="deleted_at" />
+	</resultMap>
+	
+	<sql id="table_columns">
+		id,
+		course_id,
+		stu_id,
+		type,
+		times,
+		degree,
+		created_at,
+		updated_at,
+		deleted_at
+    </sql>
+	<sql id="entity_properties">
+		#{id},
+		#{courseId},
+		#{stuId},
+		#{type},
+		#{times},
+		#{degree},
+		#{createdAt},
+		#{updatedAt},
+		#{deletedAt}
+	</sql>
+	
+	<!-- 适用于主键自增类型 -->
+	<insert id="save" parameterType="StuActive" useGeneratedKeys="true" keyProperty="id">
+		insert into data_stu_active( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+	
+	<delete id="deleteByIds">
+		delete from data_stu_active
+		where id in
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterType="StuActive">
+		update data_stu_active 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+			<if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+			<if test="type != null and type != ''">type = #{type},</if>
+			<if test="times != null and times != ''">times = #{times},</if>
+			<if test="degree != null and degree != ''">degree = #{degree},</if>
+			<if test="createdAt != null and createdAt != ''">created_at = #{createdAt},</if>
+			<if test="updatedAt != null and updatedAt != ''">updated_at = #{updatedAt},</if>
+			<if test="deletedAt != null and deletedAt != ''">deleted_at = #{deletedAt},</if>
+		</trim>
+		<where>id = #{id}</where>
+	</update>
+	
+	<select id="findById" resultMap="stuActiveResultMap" parameterType="String" >
+		select <include refid="table_columns" />
+		from data_stu_active
+		where id = #{id}
+	</select>
+	
+	<select id="queryAll" resultMap="stuActiveResultMap">
+		select <include refid="table_columns" /> 
+		from data_stu_active
+	</select>
+	
+	<!-- 使用like用法：columnName like concat('%',#columnName#,'%') -->
+	<sql id="page_where">
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+			<if test="stuId != null and stuId != ''">and stu_id = #{stuId}</if>
+			<if test="type != null and type != ''">and type = #{type}</if>
+			<if test="times != null and times != ''">and times = #{times}</if>
+			<if test="degree != null and degree != ''">and degree = #{degree}</if>
+			<if test="createdAt != null and createdAt != ''">and created_at = #{createdAt}</if>
+			<if test="updatedAt != null and updatedAt != ''">and updated_at = #{updatedAt}</if>
+			<if test="deletedAt != null and deletedAt != ''">and deleted_at = #{deletedAt}</if>
+		</trim>
+	</sql>
+	
+	<select id="page" resultMap="stuActiveResultMap" parameterType="StuActiveSearch">
+		select <include refid="table_columns" />
+		from data_stu_active
+		<include refid="page_where" />
+		limit #{firstIndex},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int" parameterType="StuActiveSearch">
+		select count(id) from data_stu_active
+		<include refid="page_where" />
+	</select>
+	
+	<!-- 其他自定义SQL -->
+	
+</mapper>
