@@ -1,75 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d0c79456-558b-4291-804d-2028f13220d3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/builder/Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/config/DbConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/config/Group.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/config/SetupConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/config/TemplateMapping.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/core/BuildFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/core/Column.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/jdbc/AbstractDaoSupport.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/jdbc/MysqlDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/jdbc/OracleDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/test/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/util/MyUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/com/wys/util/StringUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db2pojo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/freemarker-2.3.15.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gson-2.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gson-2.8.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mysql-connector-java-5.1.12-bin.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ojdbc5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config-ssi.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config-ssi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config_oracle.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config_oracle.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/action.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/action.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/ibatis_xml.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/ibatis_xml.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/junit_test.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/junit_test.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/pojo.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/pojo.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/search.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/search.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/service_impl.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/service_impl.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssi/service_spi.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssi/service_spi.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/add_jsp.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/add_jsp.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/controller.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/controller.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/del_jsp.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/del_jsp.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/details_jsp.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/details_jsp.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/junit_test.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/junit_test.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/list_jsp.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/list_jsp.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/mybatis-config.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/mybatis-config.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/mybatis_xml.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/mybatis_xml.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/pojo.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/pojo.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/search.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/search.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/service_impl.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/service_impl.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/service_spi.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/service_spi.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3/update_jsp.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3/update_jsp.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/controller.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/controller.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/junit_test.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/junit_test.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/mybatis_xml.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/mybatis_xml.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/pojo.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/pojo.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/search.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/search.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/service_impl.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/service_impl.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/template/ssm3oracle/service_spi.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/ssm3oracle/service_spi.ftl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/builder/Builder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/config/DbConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/config/Group.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/config/SetupConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/config/TemplateMapping.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/core/BuildFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/core/Column.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/jdbc/AbstractDaoSupport.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/jdbc/MysqlDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/jdbc/OracleDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/test/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/util/MyUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wys/util/StringUtil.java" beforeDir="false" />
-    </list>
+    <list default="true" id="d0c79456-558b-4291-804d-2028f13220d3" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/bin/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -159,8 +91,8 @@
       <file leaf-file-name="FrameworkAutoBuilder.iml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FrameworkAutoBuilder.iml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="153">
+              <caret line="14" column="70" selection-start-line="14" selection-start-column="70" selection-end-line="14" selection-end-column="70" />
             </state>
           </provider>
         </entry>
@@ -259,7 +191,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3908046" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -347,19 +279,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1532335534731</updated>
-      <workItem from="1532335542660" duration="5534000" />
+      <workItem from="1532335542660" duration="6479000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5534000" />
+    <option name="totallyTimeSpent" value="6479000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" visible="true" weight="0.3296582" />
+      <window_info anchor="right" id="Maven Projects" weight="0.3296582" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
@@ -373,9 +305,9 @@
       <window_info anchor="right" id="Palette&#9;" />
       <window_info id="Image Layers" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19435737" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.19435737" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" weight="0.5778474" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.5778474" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24035281" />
       <window_info id="Web" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" />
@@ -537,8 +469,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FrameworkAutoBuilder.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        <state relative-caret-position="153">
+          <caret line="14" column="70" selection-start-line="14" selection-start-column="70" selection-end-line="14" selection-end-column="70" />
         </state>
       </provider>
     </entry>
@@ -618,7 +550,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: org.freemarker:freemarker:2.3.15</last-edited>
+          <last-edited />
           <splitter-proportions>
             <option name="proportions">
               <list>
