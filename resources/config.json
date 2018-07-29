@@ -7,9 +7,9 @@
 	"dbConfig" : {
 		"driverClass" 	: "com.mysql.jdbc.Driver", 
 		
-		"username" 		: "mm-platform",
-		"password" 		: "Q{laqPgrNsXolsO",
-		"url" 			: "jdbc:mysql:\/\/rm-2ze5w706ah6050ie8ko.mysql.rds.aliyuncs.com:3306/magic_mirror_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull"
+		"username" 		: "root",
+		"password" 		: "urnotsally",
+		"url" 			: "localhost:3306/test"
 	},
 
 	//忽略前缀
