@@ -69,7 +69,7 @@ public class BuildFactory {
 	public Map<String, Object> getParams(String tableName, String packagePath) {
 		if (CACHE.containsKey(tableName)) {
 			Map<String, Object> map = CACHE.get(tableName);
-			map.put("model_package", MyUtils.buildModelPackage(tableName));
+//			map.put("model_package", MyUtils.buildModelPackage(tableName));
 			map.put("package_path", packagePath);
 			return map;
 		}
@@ -77,12 +77,12 @@ public class BuildFactory {
 		System.out.println("tablename:"+tableName);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("package_path", packagePath);
-		map.put("model_package", MyUtils.buildModelPackage(tableName));
+//		map.put("model_package", MyUtils.buildModelPackage(tableName));
 		//分组名称
 		map.put("group_name", MyUtils.getGroupName(tableName));
 		//map.put("group_name", "abc");
 		map.put("table_name", tableName);
-		map.put("class_name", StringUtil.className(tableName));
+//		map.put("class_name", StringUtil.className(tableName));
 		List<Column> columns = dao.queryColumns(tableName);
 		map.put("table_column", columns);		// 设置数据
 		map.put("hasDateColumn", Column.typeContains(columns, "Date"));		// 特殊字符处理
@@ -91,7 +91,8 @@ public class BuildFactory {
 		MyUtils.buildPoImportList(poImportList,columns);
 		map.put("poImportList", poImportList);
 		
-		map.put("project", config.getProject());
+		map.put("artifactId", config.getArtifactId());
+		map.put("groupId",config.getGroupId());
 		map.put("author", config.getAuthor());
 		map.put("sysDate", new Date());
 		CACHE.put(tableName, map);

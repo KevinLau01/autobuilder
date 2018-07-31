@@ -57,13 +57,13 @@ public class MyUtils {
 	 * @param tableName
 	 * @return
 	 */
-	public static String getModelName(String tableName, String separator) {
-		String g = getGroupName(tableName);
-		if (g == null) {
-			return StringUtil.javaStyleOfTableName(tableName);
-		}
-		return g + separator + StringUtil.javaStyleOfTableName(tableName);
-	}
+//	public static String getModelName(String tableName, String separator) {
+//		String g = getGroupName(tableName);
+//		if (g == null) {
+//			return StringUtil.javaStyleOfTableName(tableName);
+//		}
+//		return g + separator + StringUtil.javaStyleOfTableName(tableName);
+//	}
 	
 	
 	
@@ -77,19 +77,18 @@ public class MyUtils {
 	 */
 	public static String getOutPutPath(TemplateMapping m, String tableName) {
 		String path = SetupConfig.USER_DIR + SetupConfig.SEPARATOR 
-				+ "target" + SetupConfig.SEPARATOR 
-				+ m.buildDir(config.getProject(), getModelName(tableName, "/")) + SetupConfig.SEPARATOR;
-		String xmlPath =m.buildDir(config.getProject(), getModelName(tableName, "/")) + "/";
+				+ "target" + SetupConfig.SEPARATOR+"results"+SetupConfig.SEPARATOR
+				+ m.buildDir(config.getGroupId(), config.getArtifactId()) + SetupConfig.SEPARATOR;
+		String xmlPath =m.buildDir(config.getGroupId(), config.getArtifactId()) + "/";
+
 		//如果为固定文件名，不加前后缀
-		
-		
 		if(m.isFixedName()){
 			String fileName = (m.getFileName()!=null && m.getFileName().trim().length() > 0) ? m.getFileName():"xxxxxxx";		
 			path += fileName + "." + m.getSuffix();
 			xmlPath += fileName + "." + m.getSuffix();
 		}else{
-			path += m.getLpadding() + StringUtil.className(tableName) + m.getRpadding() + "." + m.getSuffix();
-			xmlPath += m.getLpadding() + StringUtil.className(tableName) + m.getRpadding() + "." + m.getSuffix();
+			path += m.getLpadding() + StringUtil.capFirst(StringUtil.javaStyle(tableName)) + m.getRpadding() + "." + m.getSuffix();
+			xmlPath += m.getLpadding() +  StringUtil.capFirst(StringUtil.javaStyle(tableName)) + m.getRpadding() + "." + m.getSuffix();
 		}
 		
 		
@@ -127,9 +126,9 @@ public class MyUtils {
 	 * @date 2013-2-28
 	 * @return
 	 */
-	public static String buildModelPackage(String tableName) {
-		return config.getProject() + "." +getModelName(tableName, ".");
-	}
+//	public static String buildModelPackage(String tableName) {
+//		return config.getArtifactId().replaceAll(".",File.separator) + "." +getModelName(tableName, ".");
+//	}
 
 	public static void buildPoImportList(Set<String> poImportSet,
 			List<Column> columns) {

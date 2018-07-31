@@ -1,72 +1,30 @@
 {
-	"project" 			: "testpro",
-	
+	"groupId" 			: "com.magic",
+	"artifactId"		:"basicdata",
 	"author" 			: "lubo",
 	
 	
 	"dbConfig" : {
 		"driverClass" 	: "com.mysql.jdbc.Driver", 
 		"username" 		: "root",
-		"password" 		: "urnotsally",
-		"url" 			: "jdbc:mysql:\/\/localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false"
+		"password" 		: "Facethink2016",
+		"url" 			: "jdbc:mysql:\/\/rm-2ze2ppu648ea95ik50o.mysql.rds.aliyuncs.com:3306/magic_tiger?useUnicode=true&characterEncoding=utf-8&useSSL=false"
 	},
 
 	//忽略前缀
-	"ignorePrefix" : "base_,course_,data_,msg_,pay_,WZHF_,DM_",
+	"ignorePrefix" : "sys_,user_,role_,permission_",
 	
 	"groups" : [{
-			"name" 	 : "base",
-			"prefix" : "base_"
-		}, {
-			"name" 	 : "course",
-			"prefix" : "course_"
-		},{
-			"name" 	 : "data",
-			"prefix" : "data_"
-		},{
-			"name" 	 : "msg",
-			"prefix" : "msg_"
-		},{
-			"name" 	 : "pay",
-			"prefix" : "pay_"
-		},
-		{
-			"name" 	 : "mobileApi",
-			"prefix" : "WZHF_"
+			"name" 	 : "sys",
+			"prefix" : "sys_"
 		}
 		],
 	
-	"templateDir" : "src/main/resources/template/ssm3/",
+	"templateDir" : "src/main/resources/template/springcloud/",
 	
 	"mappings" : [{
-			"template"	:	"controller.ftl",
-			"dir"		:	"java/com/${project}/controller",
-			"rpadding"	:	"Controller"
-		},{
-			"template"	:	"service_impl.ftl",
-			"dir"		:	"java/com/${project}/service/impl",
-			"rpadding"	:	"ServiceImpl"
-		},{
-			"template"	:	"service.ftl",
-			"dir"		:	"java/com/${project}/service",
-			"rpadding"	:	"Service"
-		},{
-			"template"	:	"dao.ftl",   
-			"dir"		:	"java/com/${project}/dao",
-			"rpadding"	:	"Mapper"
-		},{
-			"template"	:	"pojo.ftl",
-			"dir"		:	"java/com/${project}/dto",
-			"rpadding"	:	"Dto"
-		}, {
-			"template"	:	"mybatis_xml.ftl",
-			"dir"		:	"resources/mapper",
-			"rpadding"	:	"Mapper"
-			"suffix"	:	"xml"
-		}, {
-			"template"	:	"junit_test.ftl",
-			"dir"		:	"test/com/${project}/${model}",
-			"packagePath":	"com.${project}.${model}",
-			"rpadding"	:	"Test"
-	}]
+			"template"	:	"entity.ftl",
+			"dir"		:	"${groupId}/${artifactId}/entity",
+			"rpadding"	:	"Entity"
+		}]
 }

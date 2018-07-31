@@ -19,7 +19,8 @@ public class SetupConfig {
 	public static final String USER_DIR = System.getProperty("user.dir");	
 	public static final String SEPARATOR = File.separator;
 	
-	private String project;
+	private String groupId;
+	private String artifactId;
 	private String author = "admin";	// default 'admin'
 	private String ignorePrefix;
 	private DbConfig dbConfig;
@@ -79,13 +80,7 @@ public class SetupConfig {
 		return instance;
 	}
 
-	public String getProject() {
-		return project;
-	}
 
-	public void setProject(String project) {
-		this.project = project;
-	}
 
 	public String getAuthor() {
 		return author;
@@ -137,12 +132,29 @@ public class SetupConfig {
 
 	@Override
 	public String toString() {
-		return "SetupConfig [project=" + project + ", author=" + author + ", ignorePrefix=" + ignorePrefix
+		return "SetupConfig [groupId=" +groupId +", artifactId"+artifactId+ ", author=" + author + ", ignorePrefix=" + ignorePrefix
 				+ ",\n\tgroups=" + Arrays.toString(groups)
 				+ ",\n\tdbConfig=" + dbConfig + ",\n\tmappings=" + Arrays.toString(mappings) + "]";
 	}
 
 	public static void main(String[] args) {
+
 		System.out.println(getInstance());
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
 	}
 }
