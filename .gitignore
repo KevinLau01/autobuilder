@@ -6,3 +6,6 @@
 .idea
 *.iml
 target/
+ FrameworkAutoBuilder.iml
+  .idea/workspace.xml
+
