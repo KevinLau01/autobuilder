@@ -6,10 +6,9 @@
 	
 	"dbConfig" : {
 		"driverClass" 	: "com.mysql.jdbc.Driver", 
-		
-		"username" 		: "mm-platform",
-		"password" 		: "Q{laqPgrNsXolsO",
-		"url" 			: "jdbc:mysql:\/\/rm-2ze5w706ah6050ie8ko.mysql.rds.aliyuncs.com:3306/magic_mirror_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=convertToNull"
+		"username" 		: "root",
+		"password" 		: "urnotsally",
+		"url" 			: "jdbc:mysql:\/\/localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false"
 	},
 
 	//忽略前缀
@@ -41,67 +40,33 @@
 	
 	"mappings" : [{
 			"template"	:	"controller.ftl",
-			"dir"		:	"com/${project}/${model}/controller",
+			"dir"		:	"java/com/${project}/controller",
 			"rpadding"	:	"Controller"
-		}, {
-			"template"	:	"pojo.ftl",
-			"dir"		:	"com/${project}/${model}/bean"
-		}, {
-			"template"	:	"search.ftl",
-			"dir"		:	"com/${project}/${model}/bean",
-			"rpadding"	:	"Search"
-		}, {
+		},{
 			"template"	:	"service_impl.ftl",
-			"dir"		:	"com/${project}/${model}/service",
+			"dir"		:	"java/com/${project}/service/impl",
 			"rpadding"	:	"ServiceImpl"
-		}, {
-			"template"	:	"service_spi.ftl",
-			"dir"		:	"com/${project}/${model}/service/spi",
-			"lpadding"	:	"I",
+		},{
+			"template"	:	"service.ftl",
+			"dir"		:	"java/com/${project}/service",
 			"rpadding"	:	"Service"
+		},{
+			"template"	:	"dao.ftl",   
+			"dir"		:	"java/com/${project}/dao",
+			"rpadding"	:	"Mapper"
+		},{
+			"template"	:	"pojo.ftl",
+			"dir"		:	"java/com/${project}/dto",
+			"rpadding"	:	"Dto"
 		}, {
 			"template"	:	"mybatis_xml.ftl",
-			"dir"		:	"mapper/${model}",
+			"dir"		:	"resources/mapper",
+			"rpadding"	:	"Mapper"
 			"suffix"	:	"xml"
 		}, {
 			"template"	:	"junit_test.ftl",
 			"dir"		:	"test/com/${project}/${model}",
 			"packagePath":	"com.${project}.${model}",
 			"rpadding"	:	"Test"
-	}, {
-			"template"	:	"list_jsp.ftl",
-			"dir"		:	"jsp/${model}",
-			"rpadding":      "List",
-			"fileName":  "list",
-			"fixedName":true,
-			"suffix"	:	"jsp"
-		}, {
-			"template"	:	"add_jsp.ftl",
-			"dir"		:	"jsp/${model}",
-			"rpadding":      "Add",
-			"fileName":  "add",
-			 "fixedName":true,
-			"suffix"	:	"jsp"
-		}, {
-			"template"	:	"update_jsp.ftl",
-			"dir"		:	"jsp/${model}",
-			"rpadding":      "Update",
-			"fileName":  "update",
-			 "fixedName":true,
-			"suffix"	:	"jsp"
-		}, {
-			"template"	:	"del_jsp.ftl",
-			"dir"		:	"jsp/${model}",
-			"rpadding":      "Del",
-			"fileName":  "del",
-			 "fixedName":true,
-			"suffix"	:	"jsp"
-		},{
-			"template"	:	"details_jsp.ftl",
-			"dir"		:	"jsp/${model}",
-			"rpadding":      "details",
-			"fileName":  "details",
-			 "fixedName":true,
-			"suffix"	:	"jsp"
-		}]
+	}]
 }
