@@ -82,7 +82,7 @@ public class BuildFactory {
 		map.put("group_name", MyUtils.getGroupName(tableName));
 		//map.put("group_name", "abc");
 		map.put("table_name", tableName);
-//		map.put("class_name", StringUtil.className(tableName));
+		map.put("class_name", StringUtil.className(tableName));
 		List<Column> columns = dao.queryColumns(tableName);
 		map.put("table_column", columns);		// 设置数据
 		map.put("hasDateColumn", Column.typeContains(columns, "Date"));		// 特殊字符处理

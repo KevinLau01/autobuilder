@@ -26,5 +26,22 @@
 			"template"	:	"entity.ftl",
 			"dir"		:	"${groupId}/${artifactId}/entity",
 			"rpadding"	:	"Entity"
-		}]
+		},{
+			"template"	:	"dao.ftl",
+			"dir"		:	"${groupId}/${artifactId}/dao",
+			"rpadding"	:	"Mapper"
+		},{
+			"template"	:	"service_impl.ftl",
+			"dir"		:	"${groupId}/${artifactId}/service/impl",
+			"rpadding"	:	"ServiceImpl"
+		},{
+			"template"	:	"service.ftl",
+			"dir"		:	"${groupId}/${artifactId}/service",
+			"rpadding"	:	"Service"
+		},{
+			"template"	:	"controller.ftl",
+			"dir"		:	"${groupId}/${artifactId}/controller",
+			"rpadding"	:	"Controller"
+		}
+		]
 }

@@ -1,7 +1,6 @@
 package com.wys.builder;
 
-import java.io.File;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ import com.wys.config.TemplateMapping;
 import com.wys.core.BuildFactory;
 import com.wys.jdbc.AbstractDaoSupport;
 import com.wys.util.MyUtils;
-import com.wys.util.StringUtil;
+
 
 /**
  * Builder Entry
@@ -46,7 +45,8 @@ public class Builder {
 				Map<String, Object> data = factory.getParams(tableName, packagePath);
 				//模板数据添加进去做处理
 				data.put("template", m);
-				data.put("class_name",m.getLpadding()+StringUtil.className(tableName)+m.getRpadding());
+//				data.put("class_name",m.getLpadding()+StringUtil.className(tableName)+m.getRpadding());
+//				BuildFactory.setLoadingDir("src/main/resources/template/");  可通过该方法设置根目录，默认根目录为本工程根目录
 				factory.build(MyUtils.getTemplatePath(m), data, MyUtils.getOutPutPath(m, tableName));
 				
 			}

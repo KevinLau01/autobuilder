@@ -1,3 +1,4 @@
+<#assign Entity="${class_name}Entity">
 package ${package_path};
 
 import ${groupId}.common.entity.BaseEntity;
@@ -7,17 +8,17 @@ import ${im};
 </#list>
 
 /**
- * POJO:${class_name}
+ * POJO:${Entity}
  *
  * @author ${author}
  * @date ${sysDate?date}
  */
 
 @Data
-public class  ${class_name} extends BaseEntity {
+public class  ${Entity} extends BaseEntity {
 
 <#list table_column as c>
-    <#if (c.name!="id")>private ${c.type}	${c.nameJ};		<#if (c.remark?exists && c.remark!="")> /* ${c.remark} */ </#if></#if>
+    private ${c.type}	${c.nameJ};		<#if (c.remark?exists && c.remark!="")> /* ${c.remark} */ </#if>
 </#list>
 
 }
