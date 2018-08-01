@@ -9,3 +9,5 @@ target/
  FrameworkAutoBuilder.iml
   .idea/workspace.xml
 
+src/main/java/test/
+src/test/
