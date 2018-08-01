@@ -1,7 +1,10 @@
 <#assign   Entity="${class_name}Entity"
+            entity="${class_name?uncap_first}Entity"
             Dto="${class_name}Dto"
             Mapper="${class_name}Mapper"
             Service="${class_name}Service"
             service="${class_name?uncap_first}Service"
             mapper="${class_name?uncap_first}Mapper"
+            Controller="${class_name}Controller"
+            tableId="${sub_table_name}Id"
 >

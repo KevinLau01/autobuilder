@@ -79,9 +79,10 @@ public class BuildFactory {
 		map.put("package_path", packagePath);
 //		map.put("model_package", MyUtils.buildModelPackage(tableName));
 		//分组名称
-		map.put("group_name", MyUtils.getGroupName(tableName));
+//		map.put("group_name", MyUtils.getGroupName(tableName));
 		//map.put("group_name", "abc");
 		map.put("table_name", tableName);
+		map.put("sub_table_name",StringUtil.javaStyleOfTableName(tableName));
 		map.put("class_name", StringUtil.className(tableName));
 		List<Column> columns = dao.queryColumns(tableName);
 		map.put("table_column", columns);		// 设置数据
