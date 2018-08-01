@@ -112,7 +112,7 @@ public class Column {
 
 	/**
 	 * 设置javastyle列
-	 * @param name
+	 * @param nameJ
 	 */
 	public void setNameJ(String nameJ) {
 		this.nameJ = nameJ;
@@ -128,7 +128,7 @@ public class Column {
 
 	/**
 	 * 设置备注
-	 * @param name
+	 * @param remark
 	 */
 	public void setRemark(String remark) {
 		this.remark = remark;

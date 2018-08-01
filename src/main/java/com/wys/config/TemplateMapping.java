@@ -35,27 +35,27 @@ public class TemplateMapping {
 	 * if packagePath is null, calculate result value of dir filed
 	 * @author xuyl
 	 * @date 2013-1-8
-	 * @param project
-	 * @param modelName
+	 * @param groupId
+	 * @param artifactId
 	 * @return
 	 */
-	public String buildPackage(String project, String modelName) {
-		if (packagePath != null && !packagePath.trim().isEmpty()) {
-			return packagePath.replaceAll("\\$\\{project\\}", project).replaceAll("\\$\\{model\\}", modelName);
+	public String buildPackage(String groupId, String artifactId) {
+		if (packagePath != null && ! packagePath.trim().isEmpty()) {
+			return packagePath.replaceAll("\\$\\{groupId\\}", groupId).replaceAll("\\$\\{artifactId\\}", artifactId);
 		}
-		return buildDir(project, modelName).replaceAll("[\\/]", ".");
+		return buildDir(groupId, artifactId).replaceAll("[\\/]", ".");
 	}
 
 	/**
 	 * replace parameter of '${project}' and '${model}'
 	 * @author xuyl
 	 * @date 2013-1-8
-	 * @param project
-	 * @param modelName
+	 * @param groupId
+	 * @param artifactId
 	 * @return
 	 */
-	public String buildDir(String project, String modelName) {
-		return dir.replaceAll("\\$\\{project\\}", project).replaceAll("\\$\\{model\\}", modelName);
+	public String buildDir(String groupId, String artifactId) {
+		return dir.replaceAll("\\$\\{groupId\\}",groupId ).replaceAll("\\.","/").replaceAll("\\$\\{artifactId\\}", artifactId);
 	}
 
 	public String getTemplate() {

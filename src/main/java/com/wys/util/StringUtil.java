@@ -1,5 +1,6 @@
 package com.wys.util;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,17 +22,17 @@ public class StringUtil {
 		String firstC = str.substring(0, 1);
 		return str.replaceFirst(firstC, firstC.toUpperCase());
 	}
-	
+
 	/**
 	 * java风格编程：驼峰式命名<br/>
 	 * eg:user_name -> userName
 	 * @param tableName
 	 * @return String
 	 */
-	public static String javaStyle(String columnName) {
+	public static String javaStyle(String tableName) {
 		String patternStr = "(_[a-z])";
 		Pattern pattern = Pattern.compile(patternStr);
-		Matcher matcher = pattern.matcher(columnName);
+		Matcher matcher = pattern.matcher(tableName);
 		StringBuffer buf = new StringBuffer();
 		while (matcher.find()) {
 			String replaceStr = matcher.group();
@@ -66,6 +67,12 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String className(String tableName) {
-		return capFirst(javaStyleOfTableName(tableName));
+		return capFirst(javaStyle(tableName));
 	}
+
+//	public static void main(String[] args) {
+//		String str="com.a.b";
+//		System.out.println(str.replaceAll("\\.","\\\\"));
+//	}
+
 }

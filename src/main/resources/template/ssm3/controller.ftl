@@ -31,7 +31,7 @@ public class ${class_name}Controller {
 	private Logger logger = Logger.getLogger(${class_name}Controller.class);
 	
 	@Autowired
-	private I${class_name}Service ${class_name?uncap_first}ServiceImpl;
+	private ${class_name}Service ${class_name?uncap_first}ServiceImpl;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model, ${class_name}Search search){

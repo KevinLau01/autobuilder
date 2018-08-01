@@ -1,7 +1,6 @@
 package com.wys.builder;
 
-import java.io.File;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import com.wys.config.TemplateMapping;
 import com.wys.core.BuildFactory;
 import com.wys.jdbc.AbstractDaoSupport;
 import com.wys.util.MyUtils;
+
 
 /**
  * Builder Entry
@@ -39,22 +39,24 @@ public class Builder {
 			// iterator all databases tables.
 			System.out.println("template:>>>>>>>>>>>>>>>>>>>>>"+m.getTemplate());
 			for (String tableName : tablesList) {
-				System.out.println("talbe:>>>>>>>>>>>>>>>>>>>>>>>>"+tableName);
-				String packagePath = m.buildPackage(config.getProject(), MyUtils.getModelName(tableName, "."));
+				System.out.println("table:>>>>>>>>>>>>>>>>>>>>>>>>"+tableName);
+				String packagePath = m.buildPackage(config.getGroupId(), config.getArtifactId());
 				System.out.println("packagePath >>>>>>>>>>>>>>>>>:"+packagePath);
 				Map<String, Object> data = factory.getParams(tableName, packagePath);
 				//模板数据添加进去做处理
 				data.put("template", m);
+//				data.put("class_name",m.getLpadding()+StringUtil.className(tableName)+m.getRpadding());
+//				BuildFactory.setLoadingDir("src/main/resources/template/");  可通过该方法设置根目录，默认根目录为本工程根目录
 				factory.build(MyUtils.getTemplatePath(m), data, MyUtils.getOutPutPath(m, tableName));
 				
 			}
 		}
 		//生成mybatis总配置文件
-		Map<String, Object> root = new HashMap<String, Object>();
-		root.put("xmlList", MyUtils.xmlFileList);
-		String xmlOutPut =  SetupConfig.USER_DIR + SetupConfig.SEPARATOR 
-				+ "target" + SetupConfig.SEPARATOR + "mapper/mybatis-config.xml" ;
-		factory.build(config.getTemplateDir() + File.separator+"mybatis-config.ftl",root,xmlOutPut);
+//		Map<String, Object> root = new HashMap<String, Object>();
+//		root.put("xmlList", MyUtils.xmlFileList);
+//		String xmlOutPut =  SetupConfig.USER_DIR + SetupConfig.SEPARATOR
+//				+ "target" + SetupConfig.SEPARATOR + "mapper/mybatis-config.xml" ;
+//		factory.build(config.getTemplateDir() + File.separator+"mybatis-config.ftl",root,xmlOutPut);
 	}
 	
 	/**
