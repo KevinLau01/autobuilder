@@ -79,24 +79,25 @@ public class MyUtils {
 		String path = SetupConfig.USER_DIR + SetupConfig.SEPARATOR 
 				+ "target" + SetupConfig.SEPARATOR+"results"+SetupConfig.SEPARATOR
 				+ m.buildDir(config.getGroupId(), config.getArtifactId()) + SetupConfig.SEPARATOR;
-		String xmlPath =m.buildDir(config.getGroupId(), config.getArtifactId()) + "/";
+//		String xmlPath =m.buildDir(config.getGroupId(), config.getArtifactId()) + "/";
 
 		//如果为固定文件名，不加前后缀
 		if(m.isFixedName()){
 			String fileName = (m.getFileName()!=null && m.getFileName().trim().length() > 0) ? m.getFileName():"xxxxxxx";		
 			path += fileName + "." + m.getSuffix();
-			xmlPath += fileName + "." + m.getSuffix();
+//			xmlPath += fileName + "." + m.getSuffix();
 		}else{
-			path += m.getLpadding() + StringUtil.capFirst(StringUtil.javaStyle(tableName)) + m.getRpadding() + "." + m.getSuffix();
-			xmlPath += m.getLpadding() +  StringUtil.capFirst(StringUtil.javaStyle(tableName)) + m.getRpadding() + "." + m.getSuffix();
+			String name="Controller".equals(m.getRpadding())?StringUtil.javaStyleOfTableName(tableName):StringUtil.javaStyle(tableName);
+			path += m.getLpadding() + StringUtil.capFirst(name) + m.getRpadding() + "." + m.getSuffix();
+//			xmlPath += m.getLpadding() +  StringUtil.capFirst(StringUtil.javaStyle(tableName)) + m.getRpadding() + "." + m.getSuffix();
 		}
 		
 		
-		if("xml".equals(m.getSuffix())){
-			
-			xmlFileList.add(xmlPath);
-		}
-		
+//		if("xml".equals(m.getSuffix())){
+//
+//			xmlFileList.add(xmlPath);
+//		}
+
 		System.out.println("outPutPath>>>>>>>>>>>>>>>:"+path);
 		mkdir(path);
 		return path;

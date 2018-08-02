@@ -3,6 +3,7 @@ package ${package_path};
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import com.magic.common.dto.ResultDto;
@@ -36,40 +37,36 @@ public class ${Controller} {
         return new ResultDto(${service}.insertSelective(record), "xxx", "新增失败");
     }
 
+    <#if (! isMappingTable)>
     @RequestMapping(value = "/{${tableId}}", method = RequestMethod.DELETE)
     public ResultDto del(@PathVariable("${tableId}") int ${tableId}) {
         return new ResultDto(${service}.deleteByPrimaryKey(${tableId}), "xxx", "删除失败");
     }
+    <#else>
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public ResultDto del(@RequestBody ${Entity} record) {
+        return new ResultDto(${service}.deleteByPrimaryKey(record), "xxx", "删除失败");
+    }
+    </#if>
 
+    <#if (! isMappingTable)>
     @RequestMapping(value = "/{${tableId}", method = RequestMethod.PUT)
     public ResultDto update(@PathVariable("${tableId}") int ${tableId}, @RequestBody ${Entity} record) {
-        //todo
-        return new ResultDto(${service}.updateByPrimaryKeySelective(record));
-        <#--check.setLoginId(record.getLoginId());-->
-
-        <#--List<SysUserDto> result = sysUserService.selectByCondition(check);-->
-    <#--if ((result.size() == 1 && result.get(0).getId() != userId) || result.size() > 1) {-->
-    <#--return new ResultDto("xxx", "输入的登陆名称已存在不可重复");-->
+        record.setId(${tableId});
+        return new ResultDto(${service}.updateByPrimaryKeySelective(record), "xxx", "更新失败");
     }
 
-    if (record.getPassword() != null) {
-    record.setPassword(SignatureUtil.encodeStr(record.getPassword()));
+    @RequestMapping(value = "/{${tableId}}", method = RequestMethod.GET)
+    public ResultDto getInfo(@PathVariable("${tableId}") int ${tableId}) {
+        return new ResultDto(${service}.selectByPrimaryKey(${tableId}));
     }
-
-    record.setId(userId);
-    return new ResultDto(sysUserService.updateByPrimaryKeySelective(record), "xxx", "//TODO 失败");
-    }
-
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public ResultDto getInfo(@PathVariable("userId") int userId) {
-    return new ResultDto(sysUserService.selectByPrimaryKey(userId));
-    }
+    </#if>
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResultDto getAll(@ModelAttribute SysUserEntity record,
-    @RequestParam("pageNum") int pageNum,
-    @RequestParam("pageSize") int pageSize) {
-    return new ResultDto(sysUserService.selectByCondition(record, pageNum, pageSize));
+    public ResultDto getAll(@RequestBody ${Entity} record,
+                            @RequestParam(value="pageNum" ,defaultValue = "1" ) int pageNum,
+                            @RequestParam(value="pageSize", defaultValue = "20") int pageSize) {
+        return new ResultDto(${service}.selectByCondition(record, pageNum, pageSize));
     }
 
 

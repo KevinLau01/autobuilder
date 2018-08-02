@@ -84,6 +84,7 @@ public class BuildFactory {
 		map.put("table_name", tableName);
 		map.put("sub_table_name",StringUtil.javaStyleOfTableName(tableName));
 		map.put("class_name", StringUtil.className(tableName));
+		map.put("isMappingTable",StringUtil.isMappingTeble(tableName));
 		List<Column> columns = dao.queryColumns(tableName);
 		map.put("table_column", columns);		// 设置数据
 		map.put("hasDateColumn", Column.typeContains(columns, "Date"));		// 特殊字符处理

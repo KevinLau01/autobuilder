@@ -5,6 +5,6 @@
             Service="${class_name}Service"
             service="${class_name?uncap_first}Service"
             mapper="${class_name?uncap_first}Mapper"
-            Controller="${class_name}Controller"
+            Controller="${sub_table_name?cap_first}Controller"
             tableId="${sub_table_name}Id"
 >

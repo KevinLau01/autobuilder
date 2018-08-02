@@ -34,14 +34,16 @@ public class ${class_name}ServiceImpl implements ${Service} {
     }
 
     @Override
-    public ${Entity} selectByPrimaryKey(Integer id){
-         return ${mapper}.selectByPrimaryKey(id);
-    }
-
-    @Override
     public List<${Entity}> selectByCondition(${Entity} record){
         return ${mapper}.selectByCondition(record);
     }
+
+    <#if ! isMappingTable>
+    @Override
+    public ${Entity} selectByPrimaryKey(Integer id){
+         return ${mapper}.selectByPrimaryKey(id);
+    }
+    </#if>
 
     @Transactional//(propagation= Propagation.REQUIRED)
     @Override
@@ -57,17 +59,23 @@ public class ${class_name}ServiceImpl implements ${Service} {
         <#--}-->
     }
 
+    <#if (! isMappingTable)>
     @Override
     public int updateByPrimaryKeySelective(${Entity} record){
         record.setUpdateFields();
         return ${mapper}.updateByPrimaryKeySelective(record);
     }
+    </#if>
 
     @Override
+    <#if (! isMappingTable)>
     public int deleteByPrimaryKey(Integer id){
-        ${Entity} record = new ${Entity}();
-        record.setId(id);
-        record.setDeleteFields();
-        return ${mapper}.updateByPrimaryKeySelective(record);
+        return ${mapper}.updateByPrimaryKeySelective(id);
     }
+    <#else>
+     public int deleteByPrimaryKey(${Entity} record){
+        return ${mapper}.updateByPrimaryKeySelective(${Entity} record);
+    }
+    </#if>
+
 }

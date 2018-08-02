@@ -9,14 +9,18 @@ public interface ${Service}{
 
     PageInfo selectByCondition(${Entity} record, int pageNum, int pageSize);
 
-    ${Entity} selectByPrimaryKey(Integer id);
-
     List<${Entity}> selectByCondition(${Entity} record);
+
+    <#if (! isMappingTable)>
+    ${Entity} selectByPrimaryKey(Integer id);
+    </#if>
 
     int insertSelective(${Entity} record);
 
+    <#if (! isMappingTable)>
     int updateByPrimaryKeySelective(${Entity} record);
+    </#if>
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(<#if ! isMappingTable>Integer id <#else> ${Entity} record </#if>);
 
 }

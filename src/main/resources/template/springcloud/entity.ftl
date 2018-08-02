@@ -1,4 +1,4 @@
-<#assign Entity="${class_name}Entity">
+<#include "assignlib.ftl">
 package ${package_path};
 
 import ${groupId}.common.entity.BaseEntity;

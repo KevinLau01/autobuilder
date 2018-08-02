@@ -48,7 +48,7 @@ public class StringUtil {
 	 * @return String
 	 */
 	public static String javaStyleOfTableName(String tableName) {
-		System.out.println("javaStyleOfTableName tableName:"+tableName);
+//		System.out.println("javaStyleOfTableName tableName:"+tableName);
 		String prefixs = SetupConfig.getInstance().getIgnorePrefix();
 		String[] ps = prefixs.split(",");
 		for (int i = 0; i < ps.length; i++) {
@@ -68,6 +68,20 @@ public class StringUtil {
 	 */
 	public static String className(String tableName) {
 		return capFirst(javaStyle(tableName));
+	}
+
+	/**
+	 * is mapping table?
+	 * @author yxm
+	 * @date 2018-8-2
+	 * @param tableName
+	 * @return
+	 */
+	public static boolean isMappingTeble(String tableName) {
+		if(tableName.endsWith("_mapping")){
+			return  true;
+		}
+		return false;
 	}
 
 //	public static void main(String[] args) {
