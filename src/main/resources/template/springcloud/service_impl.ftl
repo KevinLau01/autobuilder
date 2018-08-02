@@ -1,5 +1,5 @@
 <#include "assignlib.ftl">
-package ${package_path};
+package ${packagePath};
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +15,10 @@ import com.magic.basicdata.entity.${Entity};
 import com.magic.basicdata.service.${Service};
 import java.util.List;
 
-<#--/**-->
- <#--* Service Implementation:${class_name}-->
- <#--* @author ${author}-->
- <#--* @date ${sysDate?date}-->
- <#--*/-->
+
 @Service
 @Transactional
-public class ${class_name}ServiceImpl implements ${Service} {
+public class ${Class}ServiceImpl implements ${Service} {
 
     @Autowired
     private ${Mapper} ${mapper};

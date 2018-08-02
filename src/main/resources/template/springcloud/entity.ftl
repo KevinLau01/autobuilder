@@ -1,5 +1,5 @@
 <#include "assignlib.ftl">
-package ${package_path};
+package ${packagePath};
 
 import ${groupId}.common.entity.BaseEntity;
 import lombok.Data;
@@ -17,7 +17,7 @@ import ${im};
 @Data
 public class  ${Entity} extends BaseEntity {
 
-<#list table_column as c>
+<#list columns as c>
     private ${c.type}	${c.nameJ};		<#if (c.remark?exists && c.remark!="")> /* ${c.remark} */ </#if>
 </#list>
 

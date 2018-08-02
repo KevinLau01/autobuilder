@@ -1,5 +1,6 @@
 package com.wys.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,11 @@ public class Column {
 	private String remark;
 	
 	private String jdbcType;
+
+    /**
+     * PRI-主键约束，UNI-唯一约束，MUL-索引，可重复
+     */
+	private String index;
 
 	public String getJdbcType() {
 		return jdbcType;
@@ -62,12 +68,13 @@ public class Column {
 	 * @param nameJ
 	 * @param remark
 	 */
-	public Column(String type, String name, String nameJ, String remark,String jdbcType) {
+	public Column(String type, String name, String nameJ, String remark,String jdbcType,String index ) {
 		this.type = type;
 		this.name = name;
 		this.nameJ = nameJ;
 		this.remark = remark;
 		this.jdbcType = jdbcType;
+		this.index=index;
 	}
 
 	/**
@@ -149,9 +156,30 @@ public class Column {
 		return false;
 	}
 
+    /**
+     * 返回主键列表
+     * @param columns
+     */
+    public static List<String> getPrimaryKey(List<Column> columns) {
+        List<String> primaryKeys = new ArrayList<>();
+        for(Column c : columns) {
+            if(c.index.contains("PRI")){
+                primaryKeys.add(c.name);
+            }
+        }
+        return  primaryKeys;
+    }
+
 	@Override
 	public String toString() {
 		return "Column [type=" + type + ", name=" + name + ", nameJ=" + nameJ + ", remark=" + remark + "]";
 	}
 
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
 }

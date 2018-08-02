@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.wys.core.Column;
 import com.wys.util.StringUtil;
+import org.springframework.context.annotation.Primary;
 
 /**
  * MySQL database Dao
@@ -29,8 +30,11 @@ public class MysqlDao extends AbstractDaoSupport {
 			ResultSet rs = createQuary(conn, "show full fields from " + tableName);
 			while (rs.next()) {
 				String type = typesConvert(rs.getString(2));
-				String javaStyle = StringUtil.javaStyle(rs.getString(1));
-				list.add(new Column(type, rs.getString(1), javaStyle, rs.getString(9),type));
+				String name=rs.getString(1);
+				String nameJ = StringUtil.javaStyle(rs.getString(1));
+				String comment= rs.getString(9);
+				String index=rs.getString(5);
+				list.add(new Column(type,name, nameJ,comment,type,index));
 			}
 			rs.close();
 			conn.close();

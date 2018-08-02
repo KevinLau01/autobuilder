@@ -3,6 +3,7 @@ package com.wys.core;
 import com.wys.config.SetupConfig;
 import com.wys.jdbc.AbstractDaoSupport;
 import com.wys.util.MyUtils;
+import com.wys.util.PrimaryKeyMethod;
 import com.wys.util.StringUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -82,11 +83,12 @@ public class BuildFactory {
 //		map.put("group_name", MyUtils.getGroupName(tableName));
 		//map.put("group_name", "abc");
 		map.put("table_name", tableName);
-		map.put("sub_table_name",StringUtil.javaStyleOfTableName(tableName));
-		map.put("class_name", StringUtil.className(tableName));
+		map.put("sub_class_name",StringUtil.javaStyleOfTableName(tableName));
+		map.put("class_name", StringUtil.javaStyle(tableName));
 		map.put("isMappingTable",StringUtil.isMappingTeble(tableName));
 		List<Column> columns = dao.queryColumns(tableName);
 		map.put("table_column", columns);		// 设置数据
+        map.put("primaryKeys",Column.getPrimaryKey(columns));
 		map.put("hasDateColumn", Column.typeContains(columns, "Date"));		// 特殊字符处理
 		//poImportList po里需要导入的包
 		Set<String> poImportList = new HashSet<String>();
@@ -97,6 +99,7 @@ public class BuildFactory {
 		map.put("groupId",config.getGroupId());
 		map.put("author", config.getAuthor());
 		map.put("sysDate", new Date());
+//		map.put("getPrimaryKey",new PrimaryKeyMethod());
 		CACHE.put(tableName, map);
 		return map;
 	}
