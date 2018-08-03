@@ -32,7 +32,7 @@
             </if>
              <#else >
             <if test="${c.nameJ} != null and ${c.nameJ}!=''">
-                and ${c.name} like '%${r"$"}{c.nameJ}%'
+                and ${c.name} like '% ${r"$"}{${c.nameJ}} %'
             </if>
             </#if>
         </#list>
@@ -54,7 +54,7 @@
             </if>
             <#else >
             <if test="${c.nameJ} != null and ${c.nameJ}!=''">
-                and ${c.name} like '%${r"$"}{c.nameJ}%'
+                and ${c.name} like '% ${r"$"}{${c.nameJ}} %'
             </if>
             </#if>
         </#list>
@@ -74,7 +74,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <#list columns as c >
-            <if test="id != null">
+            <if test="${c.nameJ} != null <#if c.type="String"> and ${c.nameJ} != ''</#if>">
                 ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}},
             </if>
             </#list>
