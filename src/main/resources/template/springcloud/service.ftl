@@ -1,8 +1,8 @@
 <#include "assignlib.ftl">
-package ${package_path};
+package ${packagepPath};
 
 import com.github.pagehelper.PageInfo;
-import ${groupId}.${artifactId}.entity.${Entity};
+import ${group_artfactId}.entity.${Entity};
 import java.util.List;
 
 public interface ${Service}{

@@ -1,5 +1,5 @@
 <#include "assignlib.ftl">
-package ${package_path};
+package ${packagePath};
 
 import ${groupId}.${artifactId}.entity.${Entity};
 import java.util.List;

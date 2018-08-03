@@ -44,8 +44,10 @@ public class Builder {
 			String packagePath = m.buildPackage(config.getGroupId(), config.getArtifactId());
 			System.out.println("packagePath >>>>>>>>>>>>>>>>>:"+packagePath);
 			for (String tableName : tablesList) {
+				if(m.getRpadding().equals("Controller") && StringUtil.isMappingTeble(tableName)){
+					continue;
+				}
 				System.out.println("table:>>>>>>>>>>>>>>>>>>>>>>>>"+tableName);
-
 				Map<String, Object> data = factory.getParams(tableName, packagePath);
 				//模板数据添加进去做处理
 				data.put("template", m);

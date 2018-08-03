@@ -1,5 +1,5 @@
 <#include "assignlib.ftl">
-package ${package_path};
+package ${packagePath};
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +10,19 @@ import com.magic.common.dto.ResultDto;
 import com.magic.common.utils.SignatureUtil;
 import com.magic.common.utils.token.Token;
 import com.magic.common.utils.token.TokenUtil;
-import ${groupId}.${artifactId}.entity.${Entity};
-import ${groupId}.${artifactId}.service.${Service};
+import ${group_artfactId}.entity.${Entity};
+import ${group_artfactId}.service.${Service};
 import java.util.List;
 import java.util.Map;
 
 /**
- * Controller of ${class_name}
+ * Controller of ${Class}
  * @author ${author}
  * @date ${sysDate?date}
  */
 
 @Controller
-@RequestMapping("/${sub_table_name}")
+@RequestMapping("/${controller}")
 public class ${Controller} {
 
 
@@ -38,9 +38,9 @@ public class ${Controller} {
     }
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{${tableId}}", method = RequestMethod.DELETE)
-    public ResultDto del(@PathVariable("${tableId}") int ${tableId}) {
-        return new ResultDto(${service}.deleteByPrimaryKey(${tableId}), "xxx", "删除失败");
+    @RequestMapping(value = "/{<#list primaryKeys as key> ${controller}${key?cap_first} </#list>}", method = RequestMethod.DELETE)
+    public ResultDto del(<#list primaryKeys as key> @PathVariable("${controller}${key?cap_first}") int</#list> <#list primaryKeys as key> ${controller}${key?cap_first} </#list>) {
+        return new ResultDto(${service}.deleteByPrimaryKey(<#list primaryKeys as key> ${controller}${key?cap_first} </#list>), "xxx", "删除失败");
     }
     <#else>
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
