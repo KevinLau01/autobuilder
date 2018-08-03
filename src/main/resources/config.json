@@ -7,7 +7,7 @@
 	"dbConfig" : {
 		"driverClass" 	: "com.mysql.jdbc.Driver", 
 		"username" 		: "root",
-		"password" 		: "Facethink2016",
+		"password" 		: "Ocean@AI-LABhwl",
 		"url" 			: "jdbc:mysql:\/\/rm-2ze2ppu648ea95ik50o.mysql.rds.aliyuncs.com:3306/magic_tiger?useUnicode=true&characterEncoding=utf-8&useSSL=false"
 	},
 
@@ -22,25 +22,28 @@
 	
 	"templateDir" : "src/main/resources/template/springcloud/",
 	
-	"mappings" : [
-//		{
-//			"template"	:	"entity.ftl",
-//			"dir"		:	"${groupId}/${artifactId}/entity",
-//			"rpadding"	:	"Entity"
-//		},{
-//			"template"	:	"dao.ftl",
-//			"dir"		:	"${groupId}/${artifactId}/dao",
-//			"rpadding"	:	"Mapper"
-//		},{
-//			"template"	:	"service_impl.ftl",
-//			"dir"		:	"${groupId}/${artifactId}/service/impl",
-//			"rpadding"	:	"ServiceImpl"
-//		},{
-//			"template"	:	"service.ftl",
-//			"dir"		:	"${groupId}/${artifactId}/service",
-//			"rpadding"	:	"Service"
-//		},
-		{
+	"mappings" : [{
+			"template"	:	"mapper_xml.ftl",
+			"dir"		:	"/mapper",
+			"rpadding"	:	"Mapper",
+			"suffix"	:	"xml"
+		},{
+			"template"	:	"entity.ftl",
+			"dir"		:	"${groupId}/${artifactId}/entity",
+			"rpadding"	:	"Entity"
+		},{
+			"template"	:	"dao.ftl",
+			"dir"		:	"${groupId}/${artifactId}/dao",
+			"rpadding"	:	"Mapper"
+		},{
+			"template"	:	"service_impl.ftl",
+			"dir"		:	"${groupId}/${artifactId}/service/impl",
+			"rpadding"	:	"ServiceImpl"
+		},{
+			"template"	:	"service.ftl",
+			"dir"		:	"${groupId}/${artifactId}/service",
+			"rpadding"	:	"Service"
+		},{
 			"template"	:	"controller.ftl",
 			"dir"		:	"${groupId}/${artifactId}/controller",
 			"rpadding"	:	"Controller"

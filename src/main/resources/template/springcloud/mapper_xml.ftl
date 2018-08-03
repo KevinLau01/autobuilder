@@ -8,171 +8,90 @@
       <!-- id, loginId, password, status, org_id,school_id,email,name, deleted, createdtime, updatetime, createdUser, updateUser-->
     </sql>
 
+    <#if (! isMappingTable)>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="${group_artfactId}.entity.${Entity}">
         select
         <include refid="Base_Column_List" />
-        from ${tablename}
-        where id = #{id,jdbcType=INTEGER}
+        from ${tableName}
+        where id = ${r"#"}{id,jdbcType=INTEGER} <#if hasDeleted(columns)> and deleted=0 </#if>
     </select>
+    </#if>
 
-    <select id="selectByCondition" parameterType="${group_artfactId}.entity.${Entity}" resultType="${group_artfactId}.dto.SysUserDto">
+
+
+    <select id="selectByCondition" parameterType="${group_artfactId}.entity.${Entity}" resultType="${group_artfactId}.entity.${Entity}">
         select
+        <include refid="Base_Column_List" />
         <where>
-            user.deleted = 0
-            <if test="schoolId != null">
-                and teacher.school_id = #{schoolId,jdbcType=INTEGER}
+        <#list columns as c >
+            <#if c.name="deleted">
+             deleted=0
+             <#elseif c.type!="String">
+            <if test="${c.nameJ} != null ">
+                and ${c.name} = ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}}
             </if>
-            <if test="roleId != null">
-                and userRole.rule_role_id = #{roleId,jdbcType=INTEGER}
+             <#else >
+            <if test="${c.nameJ} != null and ${c.nameJ}!=''">
+                and ${c.name} like '%${r"$"}{c.nameJ}%'
             </if>
-            <if test="loginId != null and loginId!= ''">
-                and user.loginId = #{loginId,jdbcType=VARCHAR}
-            </if>
-            <if test="organizationId != null">
-                and user.organization_id = #{organizationId,jdbcType=INTEGER}
-            </if>
-            <if test="status != null">
-                and user.status = #{status,jdbcType=INTEGER}
-            </if>
-            <if test="email != null and name!= '' ">
-                and user.email  like '%${email}%'
-            </if>
-            <if test="name != null and name!= '' ">
-                and user.name  like '%${name}%'
-            </if>
-            <if test="id != null">
-                and user.id = #{id,jdbcType=INTEGER}
-            </if>
+            </#if>
+        </#list>
         </where>
     </select>
 
+    <#if (!isMappingTable)>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from sys_user where id = #{id,jdbcType=INTEGER}
+        delete from ${tableName} where id = ${r"#"}{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insertSelective"  parameterType="com.magic.basicdata.dto.SysUserDto">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            select LAST_INSERT_ID()
-        </selectKey>
-        insert into sys_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
+    <#else>
+     <delete id="deleteByPrimaryKey" parameterType="${group_artfactId}.entity.${Entity}">
+         delete from ${tableName}
+         <where>
+        <#list columns as c >
+            <#if c.type!="String">
+            <if test="${c.nameJ} != null ">
+                and ${c.name} = ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}}
             </if>
-            <if test="loginId != null">
-                loginId,
+            <#else >
+            <if test="${c.nameJ} != null and ${c.nameJ}!=''">
+                and ${c.name} like '%${r"$"}{c.nameJ}%'
             </if>
-            <if test="password != null">
-                password,
-            </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="orgId != null">
-                org_id,
-            </if>
-            <if test="schoolId != null">
-                school_id,
-            </if>
-            <if test="email != null">
-                email,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
+            </#if>
+        </#list>
+         </where>
+     </delete>
+    </#if>
 
-            <if test="deleted != null">
-                deleted,
+    <insert id="insertSelective"  parameterType="${group_artfactId}.entity.${Entity}"
+    useGeneratedKeys="true" keyProperty="id">
+        insert into ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#list columns as c >
+            <if test="${c.nameJ} != null <#if c.type="String"> and ${c.nameJ} != ''</#if>">
+                ${c.name} ,
             </if>
-            <if test="createdtime != null">
-                createdtime,
-            </if>
-            <if test="createdUser != null">
-                createdUser,
-            </if>
-            <if test="updatetime != null">
-                updatetime,
-            </if>
-            <if test="updateUser != null">
-                updateUser,
-            </if>
+            </#list>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <#list columns as c >
             <if test="id != null">
-            #{id,jdbcType=INTEGER},
+                ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}},
             </if>
-            <if test="loginId != null">
-            #{loginId,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-            #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-            #{status,jdbcType=TINYINT},
-            </if>
-            <if test="orgId != null">
-            #{orgId,jdbcType=INTEGER},
-            </if>
-            <if test="schoolId != null">
-            #{schoolId,jdbcType=INTEGER},
-            </if>
-            <if test="email != null">
-            #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="name != null">
-            #{name,jdbcType=VARCHAR},
-            </if>
-
-            <if test="deleted != null">
-            #{deleted,jdbcType=TINYINT},
-            </if>
-            <if test="createdtime != null">
-            #{createdtime,jdbcType=BIGINT},
-            </if>
-            <if test="createdUser != null">
-            #{createdUser,jdbcType=VARCHAR},
-            </if>
-            <if test="updatetime != null">
-            #{updatetime,jdbcType=BIGINT},
-            </if>
-            <if test="updateUser != null">
-            #{updateUser,jdbcType=VARCHAR},
-            </if>
+            </#list>
         </trim>
     </insert>
+
+    <#if (! isMappingTable)>
     <update id="updateByPrimaryKeySelective" parameterType="com.magic.basicdata.dto.SysUserDto">
-        update sys_user
+        update ${tableName}
         <set>
-            <if test="loginId != null">
-                loginId = #{loginId,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=TINYINT},
-            </if>
-            <if test="orgId != null">
-                org_id = #{orgId,jdbcType=INTEGER},
-            </if>
-            <if test="schoolId != null">
-                school_id = #{schoolId,jdbcType=INTEGER},
-            </if>
-            <if test="email != null">
-                email = #{email,jdbcType=INTEGER},
-            </if>
-            <if test="name != null">
-                name = #{name,jdbcType=INTEGER},
-            </if>
-            <if test="deleted != null">
-                deleted = #{deleted,jdbcType=TINYINT},
-            </if>
-            <if test="updatetime != null">
-                updatetime = #{updatetime,jdbcType=BIGINT},
-            </if>
-            <if test="updateUser != null">
-                updateUser = #{updateUser,jdbcType=VARCHAR},
-            </if>
+        <#list columns as c >
+        <if test="${c.nameJ} != null <#if c.type="String"> and ${c.nameJ} != ''</#if>">
+            ${c.name} =${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}},
+        </if>
+        </#list>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = ${r"#"}{id,jdbcType=INTEGER}
     </update>
+    </#if>
 </mapper>

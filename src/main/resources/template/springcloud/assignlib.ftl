@@ -10,10 +10,18 @@
             tableId="${sub_class_name}Id"
             group_artfactId="${groupId}.${artifactId}"
             Class="${class_name?cap_first}"
+            tableName=table_name
             packagePath=package_path
             columns=table_column
             primaryKeys=primaryKeys
 >
+
+<#function hasDeleted columns>
+    <#list columns as c>
+        <#if c.name="deleted"> <#return true> </#if>
+    </#list>
+    <#return false>
+</#function>
 
 <#macro priname keys preffix>
     <#list keys as key> ${preffix}${key?cap_first} </#list>

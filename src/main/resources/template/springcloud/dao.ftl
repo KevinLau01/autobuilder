@@ -14,9 +14,7 @@ public interface ${Mapper}{
 
     int insertSelective(${Entity} record);
 
-    <#if (! isMappingTable)>
-    int updateByPrimaryKeySelective(${Entity} record);
-    </#if>
+    <#if (! isMappingTable)>int updateByPrimaryKeySelective(${Entity} record); </#if>
 
     int deleteByPrimaryKey(<#if ! isMappingTable>Integer id <#else> ${Entity} record </#if>);
 

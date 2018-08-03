@@ -66,11 +66,11 @@ public class ${Class}ServiceImpl implements ${Service} {
     @Override
     <#if (! isMappingTable)>
     public int deleteByPrimaryKey(Integer id){
-        return ${mapper}.updateByPrimaryKeySelective(id);
+        return ${mapper}.deleteByPrimaryKey(id);
     }
     <#else>
      public int deleteByPrimaryKey(${Entity} record){
-        return ${mapper}.updateByPrimaryKeySelective(${Entity} record);
+        return ${mapper}.deleteByPrimaryKey(record);
     }
     </#if>
 

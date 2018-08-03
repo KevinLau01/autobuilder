@@ -68,7 +68,7 @@ public class Column {
 	 * @param nameJ
 	 * @param remark
 	 */
-	public Column(String type, String name, String nameJ, String remark,String jdbcType,String index ) {
+	public Column(String name,String jdbcType, String index,String remark, String nameJ, String type ) {
 		this.type = type;
 		this.name = name;
 		this.nameJ = nameJ;

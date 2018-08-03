@@ -29,12 +29,13 @@ public class MysqlDao extends AbstractDaoSupport {
 			Connection conn = getConn();
 			ResultSet rs = createQuary(conn, "show full fields from " + tableName);
 			while (rs.next()) {
+				String jdbcType=rs.getString(2);
 				String type = typesConvert(rs.getString(2));
 				String name=rs.getString(1);
 				String nameJ = StringUtil.javaStyle(rs.getString(1));
-				String comment= rs.getString(9);
+				String remark= rs.getString(9);
 				String index=rs.getString(5);
-				list.add(new Column(type,name, nameJ,comment,type,index));
+				list.add(new Column(name,jdbcType,index,remark,nameJ,type));
 			}
 			rs.close();
 			conn.close();

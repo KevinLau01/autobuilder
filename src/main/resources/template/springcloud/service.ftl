@@ -1,5 +1,5 @@
 <#include "assignlib.ftl">
-package ${packagepPath};
+package ${packagePath};
 
 import com.github.pagehelper.PageInfo;
 import ${group_artfactId}.entity.${Entity};
