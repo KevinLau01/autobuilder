@@ -1,11 +1,11 @@
 package com.wys.util;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.wys.config.Group;
 import com.wys.config.SetupConfig;
 import com.wys.config.TemplateMapping;
 import com.wys.core.Column;
@@ -20,7 +20,7 @@ public class MyUtils {
 	 * config instance
 	 */
 	private static SetupConfig config = SetupConfig.getInstance();
-	public static List<String> xmlFileList = new ArrayList<String>();
+//	public static List<String> xmlFileList = new ArrayList<String>();
 	
 	/**
 	 * freemarker template file path
@@ -34,21 +34,41 @@ public class MyUtils {
 	}
 
 	/**
+	 * 取得类的成员变量 name+type
+	 * @author yxm
+	 * @date 2018-8-6
+	 * @param obj
+	 * @return
+	 */
+	public static List<Column> getClassFields(Object obj) {
+		Class c= obj.getClass();
+		List<Column> res=new ArrayList<>();
+		Field[] declaredFields = c.getDeclaredFields();
+		for(Field field:declaredFields){
+			String name=field.getName();
+			String type=field.getType().getName();
+			res.add(new Column(type,name));
+		}
+		return res;
+	}
+
+
+	/**
 	 * witch group contains tableName
 	 * @author xuyl
 	 * @date 2013-2-28
 	 * @param tableName
 	 * @return
 	 */
-	public static String getGroupName(String tableName) {
-		Group[] groups = config.getGroups();
-		String name;
-		for (Group g : groups) {
-			name = g.findGroupName(tableName);
-			if (name != null) return name;
-		}
-		return null;
-	}
+//	public static String getGroupName(String tableName) {
+//		Group[] groups = config.getGroups();
+//		String name;
+//		for (Group g : groups) {
+//			name = g.findGroupName(tableName);
+//			if (name != null) return name;
+//		}
+//		return null;
+//	}
 	
 	/**
 	 * model name of project.(default: group name and tableName in java style )
@@ -141,10 +161,9 @@ public class MyUtils {
 				poImportSet.add("java.math.BigDecimal");
 			}
 		}
-		
-		
-		
-		
-		
 	}
+
+//	public static void main(String[] args) {
+//		System.out.println(getClassFields(new BaseEntity()));
+//	}
 }

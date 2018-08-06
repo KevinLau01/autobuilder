@@ -21,7 +21,7 @@ import java.util.Map;
  * @date ${sysDate?date}
  */
 
-@Controller
+@RestController
 @RequestMapping("/${controller}")
 public class ${Controller} {
 
@@ -38,9 +38,9 @@ public class ${Controller} {
     }
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{<#list primaryKeys as key> ${controller}${key?cap_first} </#list>}", method = RequestMethod.DELETE)
-    public ResultDto del(<#list primaryKeys as key> @PathVariable("${controller}${key?cap_first}") int</#list> <#list primaryKeys as key> ${controller}${key?cap_first} </#list>) {
-        return new ResultDto(${service}.deleteByPrimaryKey(<#list primaryKeys as key> ${controller}${key?cap_first} </#list>), "xxx", "删除失败");
+    @RequestMapping(value = "/{<#list primaryKeys as key>${controller}${key.nameJ?cap_first}</#list>}", method = RequestMethod.DELETE)
+    public ResultDto del(<#list primaryKeys as key> @PathVariable("${controller}${key.nameJ?cap_first}") ${key.type} ${controller}${key.nameJ?cap_first}<#sep>,</#list> ) {
+        return new ResultDto(${service}.deleteByPrimaryKey(<#list primaryKeys as key> ${controller}${key.nameJ?cap_first} </#list>), "xxx", "删除失败");
     }
     <#else>
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
@@ -50,7 +50,7 @@ public class ${Controller} {
     </#if>
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{${tableId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{${tableId}}", method = RequestMethod.PUT)
     public ResultDto update(@PathVariable("${tableId}") int ${tableId}, @RequestBody ${Entity} record) {
         record.setId(${tableId});
         return new ResultDto(${service}.updateByPrimaryKeySelective(record), "xxx", "更新失败");
@@ -63,7 +63,7 @@ public class ${Controller} {
     </#if>
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResultDto getAll(@RequestBody ${Entity} record,
+    public ResultDto getAll(@ModelAttribute ${Entity} record,
                             @RequestParam(value="pageNum" ,defaultValue = "1" ) int pageNum,
                             @RequestParam(value="pageSize", defaultValue = "20") int pageSize) {
         return new ResultDto(${service}.selectByCondition(record, pageNum, pageSize));

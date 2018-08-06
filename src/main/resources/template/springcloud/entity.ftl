@@ -1,7 +1,7 @@
 <#include "assignlib.ftl">
 package ${packagePath};
 
-import ${groupId}.common.entity.BaseEntity;
+import com.magic.common.entity.BaseEntity;
 import lombok.Data;
 <#list poImportList as im>
 import ${im};
@@ -17,8 +17,8 @@ import ${im};
 @Data
 public class  ${Entity} extends BaseEntity {
 
-<#list columns as c>
+<#list columns as c><#if ! hasItem(BaseEntityColumns,c.nameJ)>
     private ${c.type}	${c.nameJ};		<#if (c.remark?exists && c.remark!="")> /* ${c.remark} */ </#if>
-</#list>
+</#if></#list>
 
 }

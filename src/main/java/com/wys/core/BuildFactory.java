@@ -1,5 +1,6 @@
 package com.wys.core;
 
+import com.magic.common.entity.BaseEntity;
 import com.wys.config.SetupConfig;
 import com.wys.jdbc.AbstractDaoSupport;
 import com.wys.util.MyUtils;
@@ -91,6 +92,7 @@ public class BuildFactory {
         map.put("primaryKeys",Column.getPrimaryKey(columns));
 		map.put("hasDateColumn", Column.typeContains(columns, "Date"));		// 特殊字符处理
 		//poImportList po里需要导入的包
+		map.put("BaseEntityColumns",MyUtils.getClassFields(new BaseEntity())); //只传nameJ，Type,其他成员变量为null
 		Set<String> poImportList = new HashSet<String>();
 		MyUtils.buildPoImportList(poImportList,columns);
 		map.put("poImportList", poImportList);

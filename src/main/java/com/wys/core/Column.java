@@ -52,12 +52,10 @@ public class Column {
 	/**
 	 * 构造
 	 * @param type 
-	 * @param name 
-	 * @param nameJ 
+	 * @param nameJ
 	 */
-	public Column(String type, String name, String nameJ) {
+	public Column(String type, String nameJ) {
 		this.type = type;
-		this.name = name;
 		this.nameJ = nameJ;
 	}
 	
@@ -160,11 +158,11 @@ public class Column {
      * 返回主键列表
      * @param columns
      */
-    public static List<String> getPrimaryKey(List<Column> columns) {
-        List<String> primaryKeys = new ArrayList<>();
+    public static List<Column> getPrimaryKey(List<Column> columns) {
+        List<Column> primaryKeys = new ArrayList<>();
         for(Column c : columns) {
             if(c.index.contains("PRI")){
-                primaryKeys.add(c.name);
+                primaryKeys.add(c);
             }
         }
         return  primaryKeys;

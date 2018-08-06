@@ -49,7 +49,9 @@ public class MysqlDao extends AbstractDaoSupport {
 	public String typesConvert(String mysqlType) {
 		if (mysqlType.startsWith("varchar") || mysqlType.startsWith("longtext")) {
 			return "String";
-		} else if (mysqlType.startsWith("int") || mysqlType.startsWith("bigint") || mysqlType.contains("int")) {
+		} else if (mysqlType.startsWith("bigint") ) {
+			return "Long";
+		}else if (mysqlType.startsWith("int") || mysqlType.contains("int")) {
 			return "Integer";
 		} else if (mysqlType.startsWith("double")) {
 			return "Double";

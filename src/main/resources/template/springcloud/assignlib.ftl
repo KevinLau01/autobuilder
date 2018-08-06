@@ -14,6 +14,8 @@
             packagePath=package_path
             columns=table_column
             primaryKeys=primaryKeys
+            BaseEntityColumns=BaseEntityColumns
+
 >
 
 <#function hasDeleted columns>
@@ -23,9 +25,16 @@
     <#return false>
 </#function>
 
-<#macro priname keys preffix>
-    <#list keys as key> ${preffix}${key?cap_first} </#list>
-</#macro>
+<#function hasItem columns  item>
+    <#list columns as c>
+        <#if c.nameJ=item> <#return true> </#if>
+    </#list>
+    <#return false>
+</#function>
+
+<#--<#macro priname keys preffix>-->
+    <#--<#list keys as key> ${preffix}${key?cap_first} </#list>-->
+<#--</#macro>-->
 
 
 <#--可使用的数据模型如下：-->
@@ -41,7 +50,7 @@
 <#--groupId       //组名-->
 <#--author        //作者-->
 <#--sysDate       //生成时的系统时间-->
-
+<#--BaseEntityColumns  //Entity所继承父类的成员变量及类型信息，以List<Column>形式返回，nameJ，Type传递-->
 <#--template      //当前所使用模板信息，不包含模板内容，对应实体类TemplateMapping-->
 <#--自定义函数：!!有问题无法使用，参数传递出错？？-->
 <#--getPrimaryKey（columns） //获取表中所有主键字段，返回类型List<String>-->

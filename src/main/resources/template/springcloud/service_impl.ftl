@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import com.magic.basicdata.dao.${Mapper};
+import ${group_artfactId}.dao.${Mapper};
 <#--import com.magic.basicdata.dao.SysUserRoleMappingMapper;-->
 <#--import com.magic.basicdata.dto.${Dto};-->
-import com.magic.basicdata.entity.${Entity};
+import ${group_artfactId}.entity.${Entity};
 <#--import com.magic.basicdata.entity.SysUserRuleRoleMappingEntity;-->
-import com.magic.basicdata.service.${Service};
+import ${group_artfactId}.service.${Service};
 import java.util.List;
 
 

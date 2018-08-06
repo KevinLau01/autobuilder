@@ -13,7 +13,7 @@
         select
         <include refid="Base_Column_List" />
         from ${tableName}
-        where id = ${r"#"}{id,jdbcType=INTEGER} <#if hasDeleted(columns)> and deleted=0 </#if>
+        where id = ${r"#"}{id} <#if hasDeleted(columns)> and deleted=0 </#if>
     </select>
     </#if>
 
@@ -22,13 +22,14 @@
     <select id="selectByCondition" parameterType="${group_artfactId}.entity.${Entity}" resultType="${group_artfactId}.entity.${Entity}">
         select
         <include refid="Base_Column_List" />
+        from ${tableName}
         <where>
         <#list columns as c >
             <#if c.name="deleted">
              deleted=0
              <#elseif c.type!="String">
             <if test="${c.nameJ} != null ">
-                and ${c.name} = ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}}
+                and ${c.name} = ${r"#"}{${c.nameJ}}
             </if>
              <#else >
             <if test="${c.nameJ} != null and ${c.nameJ}!=''">
@@ -41,7 +42,7 @@
 
     <#if (!isMappingTable)>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from ${tableName} where id = ${r"#"}{id,jdbcType=INTEGER}
+        delete from ${tableName} where id = ${r"#"}{id}
     </delete>
     <#else>
      <delete id="deleteByPrimaryKey" parameterType="${group_artfactId}.entity.${Entity}">
@@ -50,9 +51,10 @@
         <#list columns as c >
             <#if c.type!="String">
             <if test="${c.nameJ} != null ">
-                and ${c.name} = ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}}
+                and ${c.name} = ${r"#"}{${c.nameJ}}
             </if>
             <#else >
+            <if test="${c.nameJ} != null and ${c.nameJ}!=''">
             <if test="${c.nameJ} != null and ${c.nameJ}!=''">
                 and ${c.name} like '% ${r"$"}{${c.nameJ}} %'
             </if>
@@ -75,23 +77,23 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <#list columns as c >
             <if test="${c.nameJ} != null <#if c.type="String"> and ${c.nameJ} != ''</#if>">
-                ${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}},
+                ${r"#"}{${c.nameJ}},
             </if>
             </#list>
         </trim>
     </insert>
 
     <#if (! isMappingTable)>
-    <update id="updateByPrimaryKeySelective" parameterType="com.magic.basicdata.dto.SysUserDto">
+    <update id="updateByPrimaryKeySelective" parameterType="${group_artfactId}.entity.${Entity}">
         update ${tableName}
         <set>
         <#list columns as c >
         <if test="${c.nameJ} != null <#if c.type="String"> and ${c.nameJ} != ''</#if>">
-            ${c.name} =${r"#"}{${c.nameJ},jdbcType=${c.jdbcType}},
+            ${c.name} =${r"#"}{${c.nameJ}},
         </if>
         </#list>
         </set>
-        where id = ${r"#"}{id,jdbcType=INTEGER}
+        where id = ${r"#"}{id}
     </update>
     </#if>
 </mapper>
