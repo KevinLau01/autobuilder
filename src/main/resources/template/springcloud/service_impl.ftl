@@ -36,8 +36,8 @@ public class ${Class}ServiceImpl implements ${Service} {
 
     <#if ! isMappingTable>
     @Override
-    public ${Entity} selectByPrimaryKey(Integer id){
-         return ${mapper}.selectByPrimaryKey(id);
+    public ${Entity} selectByPrimaryKey(<@Variable_Type_Keys keys=primaryKeys/>){
+         return ${mapper}.selectByPrimaryKey(<@Variable_Keys keys=primaryKeys/>);
     }
     </#if>
 
@@ -65,8 +65,8 @@ public class ${Class}ServiceImpl implements ${Service} {
 
     @Override
     <#if (! isMappingTable)>
-    public int deleteByPrimaryKey(Integer id){
-        return ${mapper}.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(<@Variable_Type_Keys keys=primaryKeys/>){
+        return ${mapper}.deleteByPrimaryKey(<@Variable_Keys keys=primaryKeys/>);
     }
     <#else>
      public int deleteByPrimaryKey(${Entity} record){

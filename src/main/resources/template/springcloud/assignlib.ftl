@@ -7,7 +7,7 @@
             service="${class_name}Service"
             Controller="${sub_class_name?cap_first}Controller"
             controller="${sub_class_name}"
-            tableId="${sub_class_name}Id"
+            <#--tableId="${sub_class_name}Id"-->
             group_artfactId="${groupId}.${artifactId}"
             Class="${class_name?cap_first}"
             tableName=table_name
@@ -32,6 +32,13 @@
     <#return false>
 </#function>
 
+<#macro PathVariable_Keys keys pre><#list keys as key> @PathVariable("${pre}${key.nameJ?cap_first}") ${key.type} ${pre}${key.nameJ?cap_first}<#sep>,</#list></#macro>
+
+<#macro Path_Keys keys pre><#list keys as key>${pre}${key.nameJ?cap_first}<#sep>，</#list></#macro>
+
+<#macro Variable_Type_Keys keys><#list keys as key>${key.type} ${key.nameJ}<#sep>，</#list></#macro>
+
+<#macro Variable_Keys keys><#list keys as key>${key.nameJ}<#sep>，</#list></#macro>
 <#--<#macro priname keys preffix>-->
     <#--<#list keys as key> ${preffix}${key?cap_first} </#list>-->
 <#--</#macro>-->

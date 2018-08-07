@@ -12,7 +12,7 @@ public interface ${Service}{
     List<${Entity}> selectByCondition(${Entity} record);
 
     <#if (! isMappingTable)>
-    ${Entity} selectByPrimaryKey(Integer id);
+    ${Entity} selectByPrimaryKey(<@Variable_Type_Keys keys=primaryKeys/>);
     </#if>
 
     int insertSelective(${Entity} record);
@@ -21,6 +21,6 @@ public interface ${Service}{
     int updateByPrimaryKeySelective(${Entity} record);
     </#if>
 
-    int deleteByPrimaryKey(<#if ! isMappingTable>Integer id <#else> ${Entity} record </#if>);
+    int deleteByPrimaryKey(<#if ! isMappingTable><@Variable_Type_Keys keys=primaryKeys/><#else> ${Entity} record </#if>);
 
 }

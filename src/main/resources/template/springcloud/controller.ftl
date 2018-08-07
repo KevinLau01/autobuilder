@@ -1,19 +1,14 @@
 <#include "assignlib.ftl">
 package ${packagePath};
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import com.magic.common.dto.ResultDto;
-import com.magic.common.utils.SignatureUtil;
-import com.magic.common.utils.token.Token;
-import com.magic.common.utils.token.TokenUtil;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 import ${group_artfactId}.entity.${Entity};
 import ${group_artfactId}.service.${Service};
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * Controller of ${Class}
@@ -21,6 +16,7 @@ import java.util.Map;
  * @date ${sysDate?date}
  */
 
+@EnableSwagger2
 @RestController
 @RequestMapping("/${controller}")
 public class ${Controller} {
@@ -30,7 +26,6 @@ public class ${Controller} {
     private ${Service} ${service};
 
 
-    //crud
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResultDto set(@RequestBody ${Entity} record) {
         <#--record.setPassword(SignatureUtil.encodeStr(record.getLoginId().substring(record.getLoginId().length() - 6)));-->
@@ -38,9 +33,9 @@ public class ${Controller} {
     }
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{<#list primaryKeys as key>${controller}${key.nameJ?cap_first}</#list>}", method = RequestMethod.DELETE)
-    public ResultDto del(<#list primaryKeys as key> @PathVariable("${controller}${key.nameJ?cap_first}") ${key.type} ${controller}${key.nameJ?cap_first}<#sep>,</#list> ) {
-        return new ResultDto(${service}.deleteByPrimaryKey(<#list primaryKeys as key> ${controller}${key.nameJ?cap_first} </#list>), "xxx", "删除失败");
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${controller}${primaryKeys[0].nameJ?cap_first}</#if>}", method = RequestMethod.DELETE)
+    public ResultDto del(<@PathVariable_Keys keys=primaryKeys pre=controller/>) {
+        return new ResultDto(${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=controller/>), "xxx", "删除失败");
     }
     <#else>
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
@@ -50,15 +45,15 @@ public class ${Controller} {
     </#if>
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{${tableId}}", method = RequestMethod.PUT)
-    public ResultDto update(@PathVariable("${tableId}") int ${tableId}, @RequestBody ${Entity} record) {
-        record.setId(${tableId});
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${controller}${primaryKeys[0].nameJ?cap_first}</#if>}", method = RequestMethod.PUT)
+    public ResultDto update(<@PathVariable_Keys keys=primaryKeys pre=controller/>, @RequestBody ${Entity} record) {
+        record.setId(<@Path_Keys keys=primaryKeys pre=controller/>);
         return new ResultDto(${service}.updateByPrimaryKeySelective(record), "xxx", "更新失败");
     }
 
-    @RequestMapping(value = "/{${tableId}}", method = RequestMethod.GET)
-    public ResultDto getInfo(@PathVariable("${tableId}") int ${tableId}) {
-        return new ResultDto(${service}.selectByPrimaryKey(${tableId}));
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${controller}${primaryKeys[0].nameJ?cap_first}</#if>}", method = RequestMethod.GET)
+    public ResultDto getInfo(<@PathVariable_Keys keys=primaryKeys pre=controller/>) {
+        return new ResultDto(${service}.selectByPrimaryKey(<@Path_Keys keys=primaryKeys pre=controller/>));
     }
     </#if>
 
