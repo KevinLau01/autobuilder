@@ -168,6 +168,20 @@ public class Column {
         return  primaryKeys;
     }
 
+	/**
+	 * 返回唯一索引
+	 * @param columns
+	 */
+	public static List<Column> getUniqueIndex(List<Column> columns) {
+		List<Column> primaryKeys = new ArrayList<>();
+		for(Column c : columns) {
+			if(c.index.contains("UNI")){
+				primaryKeys.add(c);
+			}
+		}
+		return  primaryKeys;
+	}
+
 	@Override
 	public String toString() {
 		return "Column [type=" + type + ", name=" + name + ", nameJ=" + nameJ + ", remark=" + remark + "]";

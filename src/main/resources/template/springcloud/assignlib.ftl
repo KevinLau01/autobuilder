@@ -6,7 +6,7 @@
             Service="${class_name?cap_first}Service"
             service="${class_name}Service"
             Controller="${sub_class_name?cap_first}Controller"
-            controller="${sub_class_name}"
+            subTableName="${sub_class_name}"
             <#--tableId="${sub_class_name}Id"-->
             group_artfactId="${groupId}.${artifactId}"
             Class="${class_name?cap_first}"
@@ -14,7 +14,9 @@
             packagePath=package_path
             columns=table_column
             primaryKeys=primaryKeys
+            PrimaryKey=primaryKeys?first.nameJ?cap_first!
             BaseEntityColumns=BaseEntityColumns
+
 
 >
 
@@ -51,6 +53,8 @@
 <#--class_name   //表名，驼峰-->
 <#--isMappingTable //是否mapping表-->
 <#--table_column //表中列的集合，List<Column.>-->
+<#--primaryKeys   //主键列-->
+<#--uniqueIndexs  //唯一列-->
 <#--hasDateColumn //是否有类型为Date的列-->
 <#--poImportList  //？？-->
 <#--artifactId    //工程名称-->
@@ -59,6 +63,11 @@
 <#--sysDate       //生成时的系统时间-->
 <#--BaseEntityColumns  //Entity所继承父类的成员变量及类型信息，以List<Column>形式返回，nameJ，Type传递-->
 <#--template      //当前所使用模板信息，不包含模板内容，对应实体类TemplateMapping-->
+
 <#--自定义函数：!!有问题无法使用，参数传递出错？？-->
 <#--getPrimaryKey（columns） //获取表中所有主键字段，返回类型List<String>-->
 
+<#--Tips-->
+<#--exists用在逻辑判断,而if_exists用来打印东西时用到,如果存在打印,不存在打印空字符串.-->
+<#--exp1?exists将会被exp1??代替-->
+<#--exp1?if_exists将会被exp1!代替-->

@@ -90,6 +90,7 @@ public class BuildFactory {
 		List<Column> columns = dao.queryColumns(tableName);
 		map.put("table_column", columns);		// 设置数据
         map.put("primaryKeys",Column.getPrimaryKey(columns));
+        map.put("uniqueIndexs",Column.getUniqueIndex(columns));
 		map.put("hasDateColumn", Column.typeContains(columns, "Date"));		// 特殊字符处理
 		//poImportList po里需要导入的包
 		map.put("BaseEntityColumns",MyUtils.getClassFields(new BaseEntity())); //只传nameJ，Type,其他成员变量为null

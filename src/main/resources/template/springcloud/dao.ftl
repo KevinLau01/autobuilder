@@ -4,6 +4,12 @@ package ${packagePath};
 import ${groupId}.${artifactId}.entity.${Entity};
 import java.util.List;
 
+/**
+ * Dao of ${Class}
+ * @author ${author}
+ * @date ${sysDate?date}
+ */
+
 public interface ${Mapper}{
 
     <#if (! isMappingTable)>

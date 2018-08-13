@@ -4,8 +4,10 @@ package ${packagePath};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.magic.common.dto.ResultDto;
+import com.magic.common.validator.ValidatorService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import ${group_artfactId}.constants.ErrCode;
 import ${group_artfactId}.entity.${Entity};
 import ${group_artfactId}.service.${Service};
 
@@ -18,42 +20,42 @@ import ${group_artfactId}.service.${Service};
 
 @EnableSwagger2
 @RestController
-@RequestMapping("/${controller}")
+@RequestMapping("/${subTableName}")
 public class ${Controller} {
-
 
     @Autowired
     private ${Service} ${service};
-
+    @Autowired
+    private ValidatorService validatorService;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResultDto set(@RequestBody ${Entity} record) {
-        <#--record.setPassword(SignatureUtil.encodeStr(record.getLoginId().substring(record.getLoginId().length() - 6)));-->
-        return new ResultDto(${service}.insertSelective(record), "xxx", "新增失败");
+        validatorService.validate(record);
+        return new ResultDto(${service}.insertSelective(record), ErrCode.KEY_ALREADY_EXIST);
     }
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${controller}${primaryKeys[0].nameJ?cap_first}</#if>}", method = RequestMethod.DELETE)
-    public ResultDto del(<@PathVariable_Keys keys=primaryKeys pre=controller/>) {
-        return new ResultDto(${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=controller/>), "xxx", "删除失败");
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.DELETE)
+    public ResultDto del(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>) {
+        return new ResultDto(${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subTableName/>));
     }
     <#else>
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResultDto del(@RequestBody ${Entity} record) {
-        return new ResultDto(${service}.deleteByPrimaryKey(record), "xxx", "删除失败");
+        return new ResultDto(${service}.deleteByPrimaryKey(record));
     }
     </#if>
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${controller}${primaryKeys[0].nameJ?cap_first}</#if>}", method = RequestMethod.PUT)
-    public ResultDto update(<@PathVariable_Keys keys=primaryKeys pre=controller/>, @RequestBody ${Entity} record) {
-        record.setId(<@Path_Keys keys=primaryKeys pre=controller/>);
-        return new ResultDto(${service}.updateByPrimaryKeySelective(record), "xxx", "更新失败");
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.PUT)
+    public ResultDto update(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>, @RequestBody ${Entity} record) {
+        <#list primaryKeys as key>record.set${key.nameJ?cap_first}(${subTableName}${key.nameJ?cap_first});</#list>
+        return new ResultDto(${service}.updateByPrimaryKeySelective(record), ErrCode.KEY_ALREADY_EXIST);
     }
 
-    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${controller}${primaryKeys[0].nameJ?cap_first}</#if>}", method = RequestMethod.GET)
-    public ResultDto getInfo(<@PathVariable_Keys keys=primaryKeys pre=controller/>) {
-        return new ResultDto(${service}.selectByPrimaryKey(<@Path_Keys keys=primaryKeys pre=controller/>));
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.GET)
+    public ResultDto getInfo(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>) {
+        return new ResultDto(${service}.selectByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subTableName/>));
     }
     </#if>
 

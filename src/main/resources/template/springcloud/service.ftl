@@ -5,6 +5,12 @@ import com.github.pagehelper.PageInfo;
 import ${group_artfactId}.entity.${Entity};
 import java.util.List;
 
+/**
+ * Service of ${Class}
+ * @author ${author}
+ * @date ${sysDate?date}
+ */
+
 public interface ${Service}{
 
     PageInfo selectByCondition(${Entity} record, int pageNum, int pageSize);

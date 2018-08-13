@@ -13,6 +13,8 @@ import com.wys.jdbc.AbstractDaoSupport;
 import com.wys.util.MyUtils;
 import com.wys.util.StringUtil;
 
+import static com.wys.util.MyUtils.mkdir;
+
 
 /**
  * Builder Entry
@@ -43,6 +45,7 @@ public class Builder {
 			System.out.println("template:>>>>>>>>>>>>>>>>>>>>>"+m.getTemplate());
 			String packagePath = m.buildPackage(config.getGroupId(), config.getArtifactId());
 			System.out.println("packagePath >>>>>>>>>>>>>>>>>:"+packagePath);
+
 			for (String tableName : tablesList) {
 				if(m.getRpadding().equals("Controller") && StringUtil.isMappingTeble(tableName)){
 					continue;
@@ -52,16 +55,25 @@ public class Builder {
 				//模板数据添加进去做处理
 				data.put("template", m);
 				factory.build(MyUtils.getTemplatePath(m), data, MyUtils.getOutPutPath(m, tableName));
-				
+
 			}
+
 		}
 
-		//生成mybatis总配置文件
-//		Map<String, Object> root = new HashMap<String, Object>();
-//		root.put("xmlList", MyUtils.xmlFileList);
-//		String xmlOutPut =  SetupConfig.USER_DIR + SetupConfig.SEPARATOR
-//				+ "target" + SetupConfig.SEPARATOR + "mapper/mybatis-config.xml" ;
-//		factory.build(config.getTemplateDir() + File.separator+"mybatis-config.ftl",root,xmlOutPut);
+		//生成单个错误码常量文件
+		/*模板所在路径*/
+		String dir=config.getTemplateDir()  + "errcode.ftl";
+		/*数据模型*/
+		String packagePath="${groupId}/${artifactId}/constants".replaceAll("\\$\\{groupId\\}", config.getGroupId())
+				.replaceAll("\\$\\{artifactId\\}", config.getArtifactId()).replaceAll("[\\/]", ".");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("packagePath", packagePath);
+		/*生成文件路径*/
+		String target_dir=SetupConfig.USER_DIR + SetupConfig.SEPARATOR+ "target" + SetupConfig.SEPARATOR+"results"+SetupConfig.SEPARATOR
+				+packagePath.replaceAll("[\\.]", "\\/")+SetupConfig.SEPARATOR+"ErrCode.java";
+		mkdir(target_dir);
+		factory.build(dir, map, target_dir);
+
 	}
 	
 	/**

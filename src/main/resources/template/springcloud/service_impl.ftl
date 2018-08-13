@@ -3,9 +3,11 @@ package ${packagePath};
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.magic.common.exception.SystemException;
 
 import ${group_artfactId}.dao.${Mapper};
 <#--import com.magic.basicdata.dao.SysUserRoleMappingMapper;-->
@@ -15,12 +17,17 @@ import ${group_artfactId}.entity.${Entity};
 import ${group_artfactId}.service.${Service};
 import java.util.List;
 
+/**
+ * ServiceImpl of ${Class}
+ * @author ${author}
+ * @date ${sysDate?date}
+ */
 
 @Service
 @Transactional
 public class ${Class}ServiceImpl implements ${Service} {
 
-    @Autowired
+    @Resource
     private ${Mapper} ${mapper};
 
     @Override
@@ -41,32 +48,71 @@ public class ${Class}ServiceImpl implements ${Service} {
     }
     </#if>
 
-    @Transactional//(propagation= Propagation.REQUIRED)
+    @Transactional
     @Override
     public int insertSelective(${Entity} record){
-        record.setCreateFields();
-        return  ${mapper}.insertSelective(record);
-        <#--${Entity} checkResult = ${mapper}.selectByLoginId(record);-->
-        <#--if (checkResult != null) {-->
-            <#--return -1;-->
-        <#--} else {-->
-            <#--record.setCreateFields();-->
-            <#--return  ${mapper}.insertSelective(record);-->
-        <#--}-->
+        <#list uniqueIndexs as u>
+        <#assign UniqueKey=u.nameJ?cap_first>
+        if(record.get${UniqueKey}()!=null){
+            ${Entity} check=new ${Entity}();
+            check.set${UniqueKey}(record.get${UniqueKey}());
+            List<${Entity}> checkRes=${mapper}.selectByCondition(check);
+            if(checkRes!=null){
+                return -1;//${UniqueKey}_ALREADY_EXIST
+            }
+        }
+        </#list>
+        <#if ! isMappingTable>record.setCreateFields();</#if>
+        int res= ${mapper}.insertSelective(record);
+        if(res==1){
+            //关联表操作，先删除再增加
+            return 1;
+        } else {
+             throw new SystemException();
+        }
     }
 
     <#if (! isMappingTable)>
     @Override
     public int updateByPrimaryKeySelective(${Entity} record){
+        <#list uniqueIndexs as u>
+            <#assign UniqueKey=u.nameJ?cap_first>
+        if(record.get${UniqueKey}()!=null){
+            ${Entity} check=new ${Entity}();
+            check.set${UniqueKey}(record.get${UniqueKey}());
+            List<${Entity}> checkRes=${mapper}.selectByCondition(check);
+            if(checkRes!=null&&checkRes.get(0).get${PrimaryKey}()!=record.get${PrimaryKey}()){
+                return -1;//${UniqueKey}_ALREADY_EXIST
+            }
+        }
+        </#list>
         record.setUpdateFields();
-        return ${mapper}.updateByPrimaryKeySelective(record);
+        int res=${mapper}.updateByPrimaryKeySelective(record);
+        if(res==1){
+            //关联表操作，先删除再增加
+            return 1;
+        } else {
+             throw new SystemException();
+        }
     }
     </#if>
 
     @Override
     <#if (! isMappingTable)>
     public int deleteByPrimaryKey(<@Variable_Type_Keys keys=primaryKeys/>){
-        return ${mapper}.deleteByPrimaryKey(<@Variable_Keys keys=primaryKeys/>);
+        ${Entity} record=new ${Entity}();
+        <#list primaryKeys as k>
+        <#assign PrimaryKey=k.nameJ?cap_first>
+        record.set${PrimaryKey}(${PrimaryKey?uncap_first});
+        </#list>
+        record.setDeleteFields();
+        int delRes=${mapper}.updateByPrimaryKeySelective(record);
+        if(delRes==1){
+            return 1;
+        }
+        else {
+            throw new SystemException();
+        }
     }
     <#else>
      public int deleteByPrimaryKey(${Entity} record){
