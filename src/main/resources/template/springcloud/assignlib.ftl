@@ -15,6 +15,7 @@
             columns=table_column
             primaryKeys=primaryKeys
             PrimaryKey=primaryKeys?first.nameJ?cap_first!
+
             BaseEntityColumns=BaseEntityColumns
 
 

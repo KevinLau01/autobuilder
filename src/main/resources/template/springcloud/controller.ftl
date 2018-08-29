@@ -30,19 +30,23 @@ public class ${Controller} {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResultDto set(@RequestBody ${Entity} record) {
-        validatorService.validate(record);
-        return new ResultDto(${service}.insertSelective(record), ErrCode.KEY_ALREADY_EXIST);
+        //参数验证
+        //validatorService.validate(record);
+        ${service}.insertSelective(record);
+        return new ResultDto();
     }
 
     <#if (! isMappingTable)>
     @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.DELETE)
     public ResultDto del(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>) {
-        return new ResultDto(${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subTableName/>));
+        ${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subTableName/>);
+        return new ResultDto();
     }
     <#else>
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResultDto del(@RequestBody ${Entity} record) {
-        return new ResultDto(${service}.deleteByPrimaryKey(record));
+        ${service}.deleteByPrimaryKey(record);
+        return new ResultDto();
     }
     </#if>
 
@@ -50,7 +54,8 @@ public class ${Controller} {
     @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.PUT)
     public ResultDto update(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>, @RequestBody ${Entity} record) {
         <#list primaryKeys as key>record.set${key.nameJ?cap_first}(${subTableName}${key.nameJ?cap_first});</#list>
-        return new ResultDto(${service}.updateByPrimaryKeySelective(record), ErrCode.KEY_ALREADY_EXIST);
+        ${service}.updateByPrimaryKeySelective(record);
+        return new ResultDto();
     }
 
     @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.GET)

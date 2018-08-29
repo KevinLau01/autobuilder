@@ -30,6 +30,7 @@ public class MysqlDao extends AbstractDaoSupport {
 			ResultSet rs = createQuary(conn, "show full fields from " + tableName);
 			while (rs.next()) {
 				String jdbcType=rs.getString(2);
+				jdbcType=jdbcType.substring(0,jdbcType.indexOf('(')==-1?jdbcType.length():jdbcType.indexOf('(')).toUpperCase();
 				String type = typesConvert(rs.getString(2));
 				String name=rs.getString(1);
 				String nameJ = StringUtil.javaStyle(rs.getString(1));
@@ -67,7 +68,8 @@ public class MysqlDao extends AbstractDaoSupport {
 		
 		return mysqlType;
 	}
-	
+
+
 	/**
 	 * 测试入口
 	 * @param args

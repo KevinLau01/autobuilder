@@ -5,9 +5,15 @@
 
     <!--/ * @author ${author}    * @date ${sysDate?date}  */-->
 
+    <resultMap id="BaseResultMap" type="${group_artfactId}.entity.${Entity}">
+        <id column="${primaryKeys?first.name}" jdbcType="${primaryKeys?first.jdbcType}" property="${primaryKeys?first.nameJ}" />
+        <#list columns as c><#if ! c.index?contains("PRI")>
+        <result column="${c.name}" jdbcType="${c.jdbcType}" property="${c.nameJ}" />
+        </#if></#list>
+    </resultMap>
+
     <sql id="Base_Column_List">
     <#list columns as c> ${c.name}<#sep >,</#list>
-      <!-- id, loginId, password, status, org_id,school_id,email,name, deleted, createdtime, updatetime, createdUser, updateUser-->
     </sql>
 
     <#if (! isMappingTable)>
@@ -27,9 +33,9 @@
         <include refid="Base_Column_List" />
         from ${tableName}
         <where>
+            <#list columns as c><#if c.name="deleted">deleted=0</#if></#list>
         <#list columns as c >
             <#if c.name="deleted">
-             deleted=0
              <#elseif c.type!="String">
             <if test="${c.nameJ} != null ">
                 and ${c.name} = ${r"#"}{${c.nameJ}}

@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.magic.common.exception.CommonException;
 import com.magic.common.exception.SystemException;
 
+import com.magic.basicdata.constants.ErrCode;
 import ${group_artfactId}.dao.${Mapper};
 <#--import com.magic.basicdata.dao.SysUserRoleMappingMapper;-->
 <#--import com.magic.basicdata.dto.${Dto};-->
@@ -58,18 +60,17 @@ public class ${Class}ServiceImpl implements ${Service} {
             check.set${UniqueKey}(record.get${UniqueKey}());
             List<${Entity}> checkRes=${mapper}.selectByCondition(check);
             if(checkRes!=null){
-                return -1;//${UniqueKey}_ALREADY_EXIST
+               throw new CommonException(ErrCode.${UniqueKey?upper_case}_ALREADY_EXISTS);
             }
         }
         </#list>
         <#if ! isMappingTable>record.setCreateFields();</#if>
-        int res= ${mapper}.insertSelective(record);
-        if(res==1){
-            //关联表操作，先删除再增加
-            return 1;
-        } else {
-             throw new SystemException();
+        int insertRes= ${mapper}.insertSelective(record);
+        if(insertRes!=1){
+            throw new SystemException(ErrCode.INSERT_ERROR);
         }
+        //TODO  关联表增加记录,若失败回退事务
+        return 1;
     }
 
     <#if (! isMappingTable)>
@@ -82,18 +83,18 @@ public class ${Class}ServiceImpl implements ${Service} {
             check.set${UniqueKey}(record.get${UniqueKey}());
             List<${Entity}> checkRes=${mapper}.selectByCondition(check);
             if(checkRes!=null&&checkRes.get(0).get${PrimaryKey}()!=record.get${PrimaryKey}()){
-                return -1;//${UniqueKey}_ALREADY_EXIST
+                throw new CommonException(ErrCode.${UniqueKey?upper_case}_ALREADY_EXISTS);
             }
         }
         </#list>
         record.setUpdateFields();
-        int res=${mapper}.updateByPrimaryKeySelective(record);
-        if(res==1){
-            //关联表操作，先删除再增加
-            return 1;
-        } else {
-             throw new SystemException();
+        int updateRes=${mapper}.updateByPrimaryKeySelective(record);
+        if(updateRes!=1){
+            throw new SystemException(ErrCode.UPDATE_ERROR);
         }
+        //TODO  关联表操作，先删除再增加,若失败回退事务
+        return 1;
+
     }
     </#if>
 
@@ -107,16 +108,14 @@ public class ${Class}ServiceImpl implements ${Service} {
         </#list>
         record.setDeleteFields();
         int delRes=${mapper}.updateByPrimaryKeySelective(record);
-        if(delRes==1){
-            return 1;
+        if(delRes!=1){
+            throw new SystemException(ErrCode.DELETE_ERROR);
         }
-        else {
-            throw new SystemException();
-        }
+        return 1;
     }
     <#else>
      public int deleteByPrimaryKey(${Entity} record){
-        return ${mapper}.deleteByPrimaryKey(record);
+        return delRes= ${mapper}.deleteByPrimaryKey(record);
     }
     </#if>
 
