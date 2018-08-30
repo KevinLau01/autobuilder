@@ -31,6 +31,12 @@ public class MysqlDao extends AbstractDaoSupport {
 			while (rs.next()) {
 				String jdbcType=rs.getString(2);
 				jdbcType=jdbcType.substring(0,jdbcType.indexOf('(')==-1?jdbcType.length():jdbcType.indexOf('(')).toUpperCase();
+				if(jdbcType.equals("INT")){
+					jdbcType="INTEGER";
+				}
+				if(jdbcType.equals("TEXT")){
+					jdbcType="LONGVARCHAR";
+				}
 				String type = typesConvert(rs.getString(2));
 				String name=rs.getString(1);
 				String nameJ = StringUtil.javaStyle(rs.getString(1));

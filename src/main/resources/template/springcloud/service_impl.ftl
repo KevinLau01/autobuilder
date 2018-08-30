@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.magic.common.exception.CommonException;
 import com.magic.common.exception.SystemException;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.magic.basicdata.constants.ErrCode;
 import ${group_artfactId}.dao.${Mapper};
@@ -70,6 +71,8 @@ public class ${Class}ServiceImpl implements ${Service} {
             throw new SystemException(ErrCode.INSERT_ERROR);
         }
         //TODO  关联表增加记录,若失败回退事务
+        //事务回滚语句
+        //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return 1;
     }
 
@@ -93,6 +96,8 @@ public class ${Class}ServiceImpl implements ${Service} {
             throw new SystemException(ErrCode.UPDATE_ERROR);
         }
         //TODO  关联表操作，先删除再增加,若失败回退事务
+        //事务回滚语句
+        //TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return 1;
 
     }

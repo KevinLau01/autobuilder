@@ -37,11 +37,11 @@
 
 <#macro PathVariable_Keys keys pre><#list keys as key> @PathVariable("${pre}${key.nameJ?cap_first}") ${key.type} ${pre}${key.nameJ?cap_first}<#sep>,</#list></#macro>
 
-<#macro Path_Keys keys pre><#list keys as key>${pre}${key.nameJ?cap_first}<#sep>，</#list></#macro>
+<#macro Path_Keys keys pre><#list keys as key>${pre}${key.nameJ?cap_first}<#sep>,</#list></#macro>
 
-<#macro Variable_Type_Keys keys><#list keys as key>${key.type} ${key.nameJ}<#sep>，</#list></#macro>
+<#macro Variable_Type_Keys keys><#list keys as key>${key.type} ${key.nameJ}<#sep>,</#list></#macro>
 
-<#macro Variable_Keys keys><#list keys as key>${key.nameJ}<#sep>，</#list></#macro>
+<#macro Variable_Keys keys><#list keys as key>${key.nameJ}<#sep>,</#list></#macro>
 <#--<#macro priname keys preffix>-->
     <#--<#list keys as key> ${preffix}${key?cap_first} </#list>-->
 <#--</#macro>-->

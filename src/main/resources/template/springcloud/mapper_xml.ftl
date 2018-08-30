@@ -21,7 +21,7 @@
         select
         <include refid="Base_Column_List" />
         from ${tableName}
-        where <#list primaryKeys as PrimaryKey>${PrimaryKey.name} = ${r"#"}{${PrimaryKey.nameJ}}<#sep >and</#list>
+        where <#list primaryKeys as PrimaryKey>${PrimaryKey.name} = ${r"#"}{${PrimaryKey.nameJ}}<#sep > and </#list>
         <#if hasDeleted(columns)> and deleted=0 </#if>
     </select>
     </#if>
@@ -51,7 +51,7 @@
 
     <#if (!isMappingTable)>
     <delete id="deleteByPrimaryKey">
-        delete from ${tableName} where <#list primaryKeys as PrimaryKey>${PrimaryKey.name} = ${r"#"}{${PrimaryKey.nameJ}}<#sep >and</#list>
+        delete from ${tableName} where <#list primaryKeys as PrimaryKey>${PrimaryKey.name} = ${r"#"}{${PrimaryKey.nameJ}}<#sep > and </#list>
     </delete>
     <#else>
      <delete id="deleteByPrimaryKey" parameterType="${group_artfactId}.entity.${Entity}">
@@ -101,7 +101,7 @@
         </if>
         </#list>
         </set>
-        where <#list primaryKeys as PrimaryKey>${PrimaryKey.name} = ${r"#"}{${PrimaryKey.nameJ}}<#sep >and</#list>
+        where <#list primaryKeys as PrimaryKey>${PrimaryKey.name} = ${r"#"}{${PrimaryKey.nameJ}}<#sep > and </#list>
     </update>
     </#if>
 </mapper>
