@@ -18,6 +18,7 @@ import ${im};
 
 @Data
 @ApiModel
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class  ${Entity} extends BaseEntity {
 
 <#list columns as c><#if ! hasItem(BaseEntityColumns,c.nameJ)>

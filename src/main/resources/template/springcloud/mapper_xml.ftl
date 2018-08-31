@@ -42,7 +42,7 @@
             </if>
              <#else >
             <if test="${c.nameJ} != null and ${c.nameJ}!=''">
-                and ${c.name} like '% ${r"$"}{${c.nameJ}} %'
+                and ${c.name} like '%${r"$"}{${c.nameJ}}%'
             </if>
             </#if>
         </#list>
@@ -64,7 +64,7 @@
             </if>
             <#else >
             <if test="${c.nameJ} != null and ${c.nameJ}!=''">
-                and ${c.name} like '% ${r"$"}{${c.nameJ}} %'
+                and ${c.name} like '%${r"$"}{${c.nameJ}}%'
             </if>
             </#if>
         </#list>
