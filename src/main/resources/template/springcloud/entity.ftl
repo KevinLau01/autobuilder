@@ -5,6 +5,7 @@ import com.magic.common.entity.BaseEntity;
 import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 <#list poImportList as im>
 import ${im};
 </#list>
@@ -23,6 +24,7 @@ public class  ${Entity} extends BaseEntity {
 
 <#list columns as c><#if ! hasItem(BaseEntityColumns,c.nameJ)>
     <#if c.nameJ="id"> @ApiModelProperty(hidden = true)</#if>
+    <#if (c.remark?exists && c.remark!="")> @ApiModelProperty(value = "${c.remark}" ) </#if>
     private ${c.type}	${c.nameJ};		<#if (c.remark?exists && c.remark!="")> /* ${c.remark} */ </#if>
 </#if></#list>
 

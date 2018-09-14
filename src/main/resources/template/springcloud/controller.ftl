@@ -20,7 +20,7 @@ import ${group_artfactId}.service.${Service};
 
 @EnableSwagger2
 @RestController
-@RequestMapping("/${subTableName}")
+@RequestMapping("/${subController}")
 public class ${Controller} {
 
     @Autowired
@@ -37,9 +37,9 @@ public class ${Controller} {
     }
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.DELETE)
-    public ResultDto del(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>) {
-        ${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subTableName/>);
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subController}${PrimaryKey}</#if>}", method = RequestMethod.DELETE)
+    public ResultDto del(<@PathVariable_Keys keys=primaryKeys pre=subController/>) {
+        ${service}.deleteByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subController/>);
         return new ResultDto();
     }
     <#else>
@@ -51,16 +51,16 @@ public class ${Controller} {
     </#if>
 
     <#if (! isMappingTable)>
-    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.PUT)
-    public ResultDto update(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>, @RequestBody ${Entity} record) {
-        <#list primaryKeys as key>record.set${key.nameJ?cap_first}(${subTableName}${key.nameJ?cap_first});</#list>
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subController}${PrimaryKey}</#if>}", method = RequestMethod.PUT)
+    public ResultDto update(<@PathVariable_Keys keys=primaryKeys pre=subController/>, @RequestBody ${Entity} record) {
+        <#list primaryKeys as key>record.set${key.nameJ?cap_first}(${subController}${key.nameJ?cap_first});</#list>
         ${service}.updateByPrimaryKeySelective(record);
         return new ResultDto();
     }
 
-    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subTableName}${PrimaryKey}</#if>}", method = RequestMethod.GET)
-    public ResultDto getInfo(<@PathVariable_Keys keys=primaryKeys pre=subTableName/>) {
-        return new ResultDto(${service}.selectByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subTableName/>));
+    @RequestMapping(value = "/{<#if (primaryKeys?size>1)>"keys"<#else>${subController}${PrimaryKey}</#if>}", method = RequestMethod.GET)
+    public ResultDto getInfo(<@PathVariable_Keys keys=primaryKeys pre=subController/>) {
+        return new ResultDto(${service}.selectByPrimaryKey(<@Path_Keys keys=primaryKeys pre=subController/>));
     }
     </#if>
 

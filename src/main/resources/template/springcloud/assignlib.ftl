@@ -6,7 +6,7 @@
             Service="${class_name?cap_first}Service"
             service="${class_name}Service"
             Controller="${sub_class_name?cap_first}Controller"
-            subTableName="${sub_class_name}"
+            subController="${sub_class_name}"
             <#--tableId="${sub_class_name}Id"-->
             group_artfactId="${groupId}.${artifactId}"
             Class="${class_name?cap_first}"

@@ -8,15 +8,19 @@
 		"driverClass" 	: "com.mysql.jdbc.Driver",
 		"username" 		: "root",
 		"password" 		: "Ocean@AI-LABhwl",
-		"url" 			: "jdbc:mysql:\/\/rm-2ze2ppu648ea95ik50o.mysql.rds.aliyuncs.com:3306/magic_tiger?useUnicode=true&characterEncoding=utf-8&useSSL=false"
+		"url" 			: "jdbc:mysql:\/\/rm-2ze2ppu648ea95ik50o.mysql.rds.aliyuncs.com:3306/school_of_business?useUnicode=true&characterEncoding=utf-8&useSSL=false"
 	},
 
 	//忽略前缀，生成controller名称时用
-	"ignorePrefix" : "sys_,user_,role_,permission_",
+	"ignorePrefix" : "sys_,biz_,user_,role_,permission_",
 	
 	"groups" : [{
 			"name" 	 : "sys",
 			"prefix" : "sys_"
+		},
+		{
+			"name" 	 : "biz",
+			"prefix" : "biz_"
 		}
 		],
 	

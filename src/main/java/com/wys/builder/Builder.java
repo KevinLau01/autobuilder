@@ -2,9 +2,7 @@ package com.wys.builder;
 
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.wys.config.SetupConfig;
 import com.wys.config.TemplateMapping;
@@ -38,6 +36,20 @@ public class Builder {
 	 */
 	public void db2pojoEntry() {
 		// iterator all template file
+		Set<String> ignoreSet=new HashSet(){{
+			add("SysSku");
+			add("SysSchool");
+			add("CcUserQuestion");
+			add("BizGroupBuyingDetails");
+			add("BizStudentOrganization");
+			add("BizFavorite");
+			add("BizGroupBuying");
+			add("BizPolicy");
+			add("BizUrlTransform");
+			add("BizCourseHistory");
+			add("BizAppointment");
+		}};
+
 		TemplateMapping[] mappings = config.getMappings();
 		List<String> tablesList = AbstractDaoSupport.getInstance().queryAllTables();
 		for (TemplateMapping m : mappings) {
@@ -47,6 +59,7 @@ public class Builder {
 			System.out.println("packagePath >>>>>>>>>>>>>>>>>:"+packagePath);
 
 			for (String tableName : tablesList) {
+				if(ignoreSet.contains(StringUtil.capFirst(StringUtil.javaStyle(tableName)))){continue;}
 				if(m.getRpadding().equals("Controller") && StringUtil.isMappingTeble(tableName)){
 					continue;
 				}
