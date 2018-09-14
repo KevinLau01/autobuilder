@@ -7,7 +7,7 @@
 	"dbConfig" : {
 		"driverClass" 	: "com.mysql.jdbc.Driver",
 		"username" 		: "root",
-		"password" 		: "Ocean@AI-LABhwl",
+		"password" 		: "",
 		"url" 			: "jdbc:mysql:\/\/rm-2ze2ppu648ea95ik50o.mysql.rds.aliyuncs.com:3306/school_of_business?useUnicode=true&characterEncoding=utf-8&useSSL=false"
 	},
 
